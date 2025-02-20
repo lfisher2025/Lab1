@@ -7,8 +7,9 @@ namespace Lab1.Pages.Admin
 {
     public class AddUserModel : PageModel
     {
-        
-        public User NewUser = new User();
+        [BindProperty]
+        public int UserType { get; set; }
+        //public User NewUser = new User();
 
 
         public void OnGet()

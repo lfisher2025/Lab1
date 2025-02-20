@@ -8,14 +8,15 @@
 
 <nav class="sub-menu">
     <ul>
-        <li><a asp-page="#">Add Project</a></li>
-        <li><a asp-page="#">Add New User</a></li>
-        <li><a asp-page="#">Add Business Partner</a></li>
-        <li><a asp-page="#">Manage Business Partner</a></li>
-        <li><a asp-page="#">Meetings</a></li>
-        
+        <li><a asp-page="/Admin/NewProject">Add Project</a></li>
+        <li><a asp-page="/Admin/AddUser">Add New User</a></li>
+        <li><a asp-page="/Admin/AddBusinessPartner">Add Business Partner</a></li>
+        <li><a asp-page="/Admin/ManageBusinessPartners">Manage Business Partner</a></li>
+        <li><a asp-page="/Admin/Meetings">Meetings</a></li>
     </ul>
 </nav>
+
+
 
 <style>
     .sub-menu {
@@ -49,3 +50,4 @@
         background-color: #666;
     }
 </style>
+

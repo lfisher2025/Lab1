@@ -91,7 +91,17 @@ namespace Lab1.Pages.DB
             Lab1DBConnection.Open();
         }
 
+        public static void AddBusinessPartner(BusinessPartner NewBusinessPartner)
+        {
+            string AddPartnerString = "INSERT INTO BusinessPartner (name, representativeID ,Status) VALUES(" + NewBusinessPartner.name + "," + NewBusinessPartner.representativeID
+                + "," + NewBusinessPartner.status + ");";
+            SqlCommand cmdAddPartner = new SqlCommand();
+            cmdAddPartner.Connection = Lab1DBConnection;
+            cmdAddPartner.Connection.ConnectionString = Lab1DBConnString;
+            cmdAddPartner.CommandText = AddPartnerString;
+            Lab1DBConnection.Open();
 
+        }
 
     }
 }

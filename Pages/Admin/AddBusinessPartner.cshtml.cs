@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Lab1.Pages.Data_Classes;
+using Lab1.Pages.DB;
 
 namespace Lab1.Pages.Admin
 {
@@ -10,12 +11,14 @@ namespace Lab1.Pages.Admin
         public String CompanyName { get; set; }
 
         [BindProperty]
-        public String RepresentativeID { get; set; }
+        public int RepresentativeID { get; set; }
 
         [BindProperty]
         public int StatusSelect {  get; set; }
 
         public String Status;
+
+        //Eventually, the OnGet method will need to select the representatives from the database for a user to select one to attach to the business
         public void OnGet()
         {
         }
@@ -43,8 +46,16 @@ namespace Lab1.Pages.Admin
             {
                 Status = "Active-Partner";
             }
-            //Below is commented to avoid compiler errors, trying to create a businessPartner object from data classes, for some reason it doesnt like that idea
+            
             BusinessPartner NewPartner = new BusinessPartner();
+            NewPartner.name = CompanyName;
+            NewPartner.status = Status;
+            NewPartner.representativeID = RepresentativeID;
+
+            DBClass.AddBusinessPartner(NewPartner);
+
+            DBClass.Lab1DBConnection.Close();
+
             
         }
     }
