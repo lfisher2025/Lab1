@@ -18,8 +18,8 @@ namespace Lab1.Pages.Admin
         [BindProperty]
         public String DueDate { get; set; }
 
-        [BindProperty]
-        public List<Grant> 
+//[BindProperty]
+//public List<Grant> 
 
 
         public void OnGet()

@@ -15,7 +15,7 @@ namespace Lab1.Pages.Admin
         {
             
         }
-
+        // The different post methods are supposed to add the user to the user table and also the respective child table (admin, employee representative, faculty)
         public void OnRepresentativePost (AddUserModel Representative) 
         {
             

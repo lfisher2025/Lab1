@@ -1,5 +1,6 @@
 ﻿using System.Data.SqlClient;
-using Lab1.Pages.User;
+using Lab1.Pages.Data_Classes;
+
 
 namespace Lab1.Pages.DB
 {
@@ -9,7 +10,7 @@ namespace Lab1.Pages.DB
         // and retrieving data from the DB easier.
 
         // Connection Object at Data Field Level
-        private static SqlConnection Lab1DBConnection = new SqlConnection();
+        public static SqlConnection Lab1DBConnection = new SqlConnection();
 
         // Connection String - How to find and connect to DB
         private static readonly String? Lab1DBConnString =
@@ -66,7 +67,29 @@ namespace Lab1.Pages.DB
 
             return tempReader;
         }
+
+        public static SqlDataReader ViewUserMessages(int UserID)
+        {
+            string MessageSelectString = "SELECT Content FROM Message WHERE senderID = " + UserID + ";";
+            SqlCommand cmdViewMessage = new SqlCommand();
+            cmdViewMessage.Connection = Lab1DBConnection;
+            cmdViewMessage.Connection.ConnectionString = Lab1DBConnString;
+            cmdViewMessage.CommandText = MessageSelectString;
+            Lab1DBConnection.Open();
+
+            SqlDataReader tempreader = cmdViewMessage.ExecuteReader();
+            return tempreader;
+        }
        
+        public static void AddGrant(Grant NewGrant)
+        {
+            string AddGrantString = "INSERT INTO GRANT (name, amount, businessid) VALUES (" + NewGrant.Name + "," + NewGrant.Amount + "," + NewGrant.BusinessID + ");";
+            SqlCommand cmdAddGrant = new SqlCommand();
+            cmdAddGrant.Connection = Lab1DBConnection;
+            cmdAddGrant.Connection.ConnectionString = Lab1DBConnString;
+            cmdAddGrant.CommandText = AddGrantString;
+            Lab1DBConnection.Open();
+        }
 
 
 

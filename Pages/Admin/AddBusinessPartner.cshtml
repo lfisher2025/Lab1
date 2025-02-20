@@ -2,3 +2,35 @@
 @model Lab1.Pages.Admin.AddBusinessPartnerModel
 @{
 }
+
+<h2>Add New Business Partner</h2>
+
+<!--This form collects information to add a new business partner to a database-->
+
+<form method="post">
+	<div>
+		<label for="Company Name">Company Name:</label>
+		<input asp-for="CompanyName" class="form-control" />
+	</div>
+
+	<!--This is supposed to be a drop down select to choose the representative in the future, additionally should tell users to add representative as a user first-->
+	<div>
+		<label for="RepresentativeID">RepresentativeID:</label>
+		<input asp-for="RepresentativeID" class="form-control" />
+	</div>
+
+	<div>
+		<label for="Status">Status:</label>
+		<select asp-for="StatusSelect" class="form-control">
+			<option value="1">Prospect</option>
+			<option value="2">Initial Contact</option>
+			<option value="3">In Negotiation</option>
+			<option value="4">Memo Signed</option>
+			<option value="5">Active Partner</option>
+		</select>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Submit</button>
+
+
+</form>
