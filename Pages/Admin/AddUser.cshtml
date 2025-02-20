@@ -1,0 +1,18 @@
+﻿@page
+@model Lab1.Pages.User.AddUserModel
+@{
+}
+
+<h1>Add New User:</h1>
+
+<form asp-page-handler="SingleSelect" method="post">
+    <select asp-for="UserType" class="form-select">
+        <option selected>CIS 454</option>
+        <option value="1">Representative</option>
+        <option value="2">Faculty</option>
+        <option value="3">Employee</option>
+        <option value="3">Admin</option>
+    </select>
+    <br />
+    <button class="btn btn-primary">Submit Selection</button>
+</form>
