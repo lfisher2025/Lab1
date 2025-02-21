@@ -5,8 +5,9 @@ namespace Lab1.Pages.Admin
 {
     public class ViewProjectModel : PageModel
     {
-        public void OnGet()
+        public void OnGet(int ProjectID)
         {
+
         }
     }
 }

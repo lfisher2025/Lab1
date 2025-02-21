@@ -16,7 +16,42 @@
     </ul>
 </nav>
 
+<h2>Current Projects</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Due Date</th>
+            <th>View</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in Model.TableData)
+        {
+            <tr>
+                @foreach (var cell in row.Values)
+                {
+                    <td>@cell</td>
+                }
+                <td>
+                    <div class="btn">
+                        <a asp-page="/AdminViewProject" class="btn btn-primary">View</a>
+                    </div>
+                </td>
+            </tr>
+        }
+        <tr>
 
+        </tr>
+
+    </tbody>
+
+
+
+
+
+</table>
 
 <style>
     .sub-menu {

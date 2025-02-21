@@ -15,8 +15,7 @@ namespace Lab1.Pages.Faculty
         [BindProperty]
         public DateTime AwardDate { get; set; }
         [BindProperty]
-        public DateTime SubmissionDate { get; set; }
-        [BindProperty]
+        
         public int FacultyID { get; set; }
         [BindProperty]
         public int BusinessPartnerID { get; set; }

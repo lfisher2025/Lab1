@@ -7,104 +7,39 @@
 
 <form asp-page-handler="SingleSelect" method="post">
     <select asp-for="UserType" class="form-select">
-        <option selected>CIS 454</option>
-        <option value="1">Representative</option>
-        <option value="2">Faculty</option>
-        <option value="3">Employee</option>
-        <option value="3">Admin</option>
+        <option selected>Select A Type</option>
+        <option value="representative">Representative</option>
+        <option value="faculty">Faculty</option>
+        <option value="employee">Employee</option>
+        <option value="admin">Admin</option>
     </select>
     <br />
-    <button class="btn btn-primary">Submit Selection</button>
+
+    <div>
+        <label asp-for="FirstName">First Name:</label>
+        <input asp-for="FirstName" class="form-control"/>
+    </div>
+    <div>
+        <label asp-for="LastName">Last Name:</label>
+        <input asp-for="LastName" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="MiddleInitial">Middle Initial:</label>
+        <input asp-for="MiddleInitial" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="PhoneNumber">Phone Number:</label>
+        <input asp-for="PhoneNumber" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="Email">Email:</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <button class="btn btn-primary">Submit</button>
 </form>
-<form method="post">
-    <div>
-        <label asp-for="Representative.FirstName">First Name</label>
-        <input asp-for="Representative.FirstName" />
-    </div>
-    <div>
-        <label asp-for="Representative.LastName">Last Name</label>
-        <input asp-for="Representative.LastName" />
-    </div>
-    <div>
-        <label asp-for="Representative.MiddleInitial">Middle Initial</label>
-        <input asp-for="Representative.MiddleInitial" />
-    </div>
-    <div>
-        <label asp-for="Representative.PhoneNumber">Phone#</label>
-        <input asp-for="Representative.PhoneNumber" />
-    </div>
-    <div>
-        <label asp-for="Representative.Email">Email Address</label>
-        <input asp-for="Representative.Email" />
-    </div>
-    <button type="Submit">Add</button>
-</form>
-<form method="post">
-    <div>
-        <label asp-for="Employee.FirstName">First Name</label>
-        <input asp-for="Employee.FirstName" />
-    </div>
-    <div>
-        <label asp-for="Employee.LastName">Last Name</label>
-        <input asp-for="Employee.LastName" />
-    </div>
-    <div>
-        <label asp-for="Employee.MiddleInitial">Middle Initial</label>
-        <input asp-for="Employee.MiddleInitial" />
-    </div>
-    <div>
-        <label asp-for="Employee.PhoneNumber">Phone#</label>
-        <input asp-for="Employee.PhoneNumber" />
-    </div>
-    <div>
-        <label asp-for="Employee.Email">Email Address</label>
-        <input asp-for="Employee.Email"/>
-    </div>
-    <button type="Submit">Add</button>
-</form>
-<form method="post">
-    <div>
-        <label asp-for="Faculty.FirstName">First Name</label>
-        <input asp-for="Faculty.FirstName" />
-    </div>
-    <div>
-        <label asp-for="Faculty.LastName">Last Name</label>
-        <input asp-for="Faculty.LastName" />
-    </div>
-    <div>
-        <label asp-for="Faculty.MiddleInitial">Middle Initial</label>
-        <input asp-for="Faculty.MiddleInitial" />
-    </div>
-    <div>
-        <label asp-for="Faculty.PhoneNumber">Phone#</label>
-        <input asp-for="Faculty.PhoneNumber" />
-    </div>
-    <div>
-        <label asp-for="Faculty.Email" >Email Address</label>
-        <input asp-for="Faculty.Email" />
-    </div>
-    <button type="Submit">Add</button>
-</form>
-<form method="post">
-    <div>
-        <label asp-for="Admin.FirstName">First Name</label>
-        <input asp-for="Admin.FirstName" />
-    </div>
-    <div>
-        <label asp-for="Admin.LastName">Last Name</label>
-        <input asp-for="Admin.LastName" />
-    </div>
-    <div>
-        <label asp-for="Admin.MiddleInitial">Middle Initial</label>
-        <input asp-for="Admin.MiddleInitial" />
-    </div>
-    <div>
-        <label asp-for="Admin.PhoneNumber">Phone#</label>
-        <input asp-for="Admin.PhoneNumber" />
-    </div>
-    <div>
-        <label asp-for="Admin.Email">Email Address</label>
-        <input asp-for="Admin.Email" />
-    </div>
-    <button type="Submit">Add</button>
-</form>
+
+
+
+
+  
