@@ -15,12 +15,15 @@ namespace Lab1.Pages.Faculty
         [BindProperty]
         public DateTime AwardDate { get; set; }
         [BindProperty]
+        public DateTime SubmissionDate { get; set; }
+        [BindProperty]
         public int FacultyID { get; set; }
         [BindProperty]
         public int BusinessPartnerID { get; set; }
         [BindProperty]
         public int StatusSelect { get; set; }
         public String Status;
+        public AddGrantModel Grant { get; set; }
 
 
         public void OnGet()
@@ -51,5 +54,14 @@ namespace Lab1.Pages.Faculty
 
             DBClass.Lab1DBConnection.Close();
         }
+        public IActionResult OnGrantPost(AddGrantModel Grant)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            RedirectToPage("AddGrant");
+        }
+
     }
 }
