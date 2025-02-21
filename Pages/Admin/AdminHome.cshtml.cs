@@ -1,5 +1,6 @@
 using System.Data.SqlClient;
 using System.Reflection.PortableExecutable;
+using Lab1.Pages.Data_Classes;
 using Lab1.Pages.DB;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,29 +11,38 @@ namespace Lab1.Pages.Admin
     {
         
         public List<Dictionary<string, object>> TableData { get; set; } = new();
+        public string UserID { get; set; }
 
-    
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            //Gather the projects for the current User 
+            UserID = HttpContext.Session.GetString("UserID");
 
-            //Will need to collect the user id from the session, added later
+            if (string.IsNullOrEmpty(UserID))
+            {
+                return RedirectToPage("/EnterID"); // Redirect if no ID is stored
+            }
 
-            //SqlDataReader projectReader = DBClass.ViewAdminProjects(12);
+            SqlDataReader projectReader = DBClass.ViewAdminProjects(Convert.ToInt32(UserID));
 
-            //while (projectReader.Read())
-            //{
-            //    var row = new Dictionary<string, object>();
-            //    for (int i = 0; i < projectReader.FieldCount; i++)
-            //    {
-            //        row[projectReader.GetName(i)] = projectReader[i];
-            //    }
-            //    TableData.Add(row);
-            //}
+            while (projectReader.Read())
+            {
+                var row = new Dictionary<string, object>();
+                for (int i = 0; i < projectReader.FieldCount; i++)
+                {
+                    row[projectReader.GetName(i)] = projectReader[i];
+                }
+                TableData.Add(row);
+            }
 
             DBClass.Lab1DBConnection.Close();
 
-
+            return Page();
         }
+
+
+ 
+
+
+        
     }
 }

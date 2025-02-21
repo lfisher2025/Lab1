@@ -1,4 +1,5 @@
 ﻿using System.Data.SqlClient;
+using System.Reflection.PortableExecutable;
 using Lab1.Pages.Data_Classes;
 
 
@@ -105,9 +106,9 @@ namespace Lab1.Pages.DB
 
         public static SqlDataReader ViewAdminProjects(int AdminID)
         {
-            string ViewAdminProjectsString = "SELECT (Project.name, Grant.amount , Project.dueDate) " +
-                "FROM Project JOIN Grant ON Project.grantID = Grant.grantID" +
-                "WHERE Project.adminID = " + AdminID + ";";
+            string ViewAdminProjectsString = "SELECT Project.name, Grants.amount , Project.dueDate " +
+                "FROM Project JOIN Grants ON Project.grantID = Grants.grantID" +
+                " WHERE Project.adminID = " + AdminID + ";";
 
             SqlCommand cmdViewAdminProjects = new SqlCommand();
             cmdViewAdminProjects.Connection = Lab1DBConnection; 
@@ -125,5 +126,34 @@ namespace Lab1.Pages.DB
         //    string viewProjectString = "SELECT * FROM PROJECT
         //}
 
+        public static void AddNewProject(Project project)
+        {
+            string getFacultyString = "SELECT facultyID FROM FacultyGrant WHERE grantID = " + project.grantID + ";";
+            SqlCommand cmdGetFaculty = new SqlCommand();
+            cmdGetFaculty.Connection = Lab1DBConnection;
+            cmdGetFaculty.Connection.ConnectionString = Lab1DBConnString;
+            cmdGetFaculty .CommandText = getFacultyString;
+            Lab1DBConnection.Open();
+
+            SqlDataReader facultyReader = cmdGetFaculty.ExecuteReader();
+
+            int result = 0;
+            if (facultyReader.Read())
+            {
+                result = Convert.ToInt32(facultyReader["facultyID"]);
+            }
+            Lab1DBConnection.Close();
+
+            string AddProjectString = "INSERT INTO PROJECT (grantID, employeeID, adminID, facultyID, name, dueDate) VALUES (" +
+                project.grantID + "," + project.employeeID + "," + "12" + "," + result + "," + project.name + "," + project.DueDate + ");";
+
+            SqlCommand cmdAddProject = new SqlCommand();
+            cmdAddProject.Connection = Lab1DBConnection;
+            cmdAddProject.Connection.ConnectionString = Lab1DBConnString;
+            cmdAddProject.CommandText = AddProjectString;
+            Lab1DBConnection.Open();
+
+          
+        }
     }
 }

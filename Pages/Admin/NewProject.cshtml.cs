@@ -18,7 +18,7 @@ namespace Lab1.Pages.Admin
         public int EmployeeID { get; set; }
 
         [BindProperty]
-        public String DueDate { get; set; }
+        public DateTime DueDate { get; set; }
 
         [BindProperty]
         public List<Grant> GrantDropdown { get; set; } = new List<Grant>();
@@ -44,6 +44,10 @@ namespace Lab1.Pages.Admin
         public void OnPost()
         {
             Project newProject = new Project();
+            newProject.grantID = GrantID;
+            newProject.employeeID = EmployeeID;
+            newProject.name = ProjectName;
+            newProject.DueDate = DueDate;
 
         }
     }
