@@ -15,6 +15,8 @@ namespace Lab1.Pages.Data_Classes
         [Required]
         public int facultyID { get; set; }
         [Required]
+        public string name { get; set; }
+        [Required]
         public DateTime DueDate { get; set; }
         [Required]
         public DateTime submissionDate { get; set; }

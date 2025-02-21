@@ -1,0 +1,83 @@
+-- Insert Users
+INSERT INTO Users (firstName, lastName, middleInitial, role, phoneNumber, email) VALUES
+('John', 'Doe', 'A', 'faculty', '123-456-7890', 'jdoe@example.com'),
+('Jane', 'Smith', 'B', 'admin', '234-567-8901', 'jsmith@example.com'),
+('Robert', 'Brown', 'C', 'employee', '345-678-9012', 'rbrown@example.com'),
+('Emily', 'Davis', 'D', 'representative', '456-789-0123', 'edavis@example.com');
+
+-- Insert Admin
+INSERT INTO Admin (adminID) 
+SELECT userID FROM Users WHERE role = 'admin';
+
+-- Insert Employee
+INSERT INTO Employee (employeeID, adminID) 
+SELECT u.userID, a.adminID 
+FROM Users u 
+JOIN Admin a ON a.adminID = a.adminID
+WHERE u.role = 'employee';
+
+-- Insert Representative
+INSERT INTO Representative (representativeID) 
+SELECT userID FROM Users WHERE role = 'representative';
+
+-- Insert Faculty
+INSERT INTO Faculty (facultyID, schoolName, department) 
+SELECT userID, 'Engineering College', 'Computer Science' 
+FROM Users WHERE role = 'faculty';
+
+-- Insert Business Partners
+INSERT INTO BusinessPartner (name, representativeID, status) 
+SELECT 'TechCorp', representativeID, 'Active Partner' FROM Representative
+UNION ALL
+SELECT 'EduGrant Inc.', representativeID, 'Memo Signed' FROM Representative;
+
+-- Insert Grants
+INSERT INTO Grants (name, category, amount, businessID) VALUES
+('Tech Innovation Grant', 'Business-funded', 50000.00, (SELECT TOP 1 businessID FROM BusinessPartner WHERE name = 'TechCorp')),
+('STEM Education Grant', 'Federal', 100000.00, NULL);
+
+-- Insert FacultyGrant
+INSERT INTO FacultyGrant (grantID, facultyID)
+SELECT g.grantID, f.facultyID FROM Grants g, Faculty f;
+
+-- Insert Projects
+INSERT INTO Project (grantID, employeeID, adminID, facultyID, name, dueDate, submissionDate, completeStatus) 
+VALUES
+((SELECT TOP 1 grantID FROM Grants WHERE name = 'Tech Innovation Grant'),
+ (SELECT TOP 1 employeeID FROM Employee),
+ (SELECT TOP 1 adminID FROM Admin),
+ (SELECT TOP 1 facultyID FROM Faculty),
+ 'AI Research', '2025-06-30', NULL, 0),
+
+((SELECT TOP 1 grantID FROM Grants WHERE name = 'STEM Education Grant'),
+ (SELECT TOP 1 employeeID FROM Employee),
+ (SELECT TOP 1 adminID FROM Admin),
+ (SELECT TOP 1 facultyID FROM Faculty),
+ 'Robotics Program', '2025-12-15', NULL, 0);
+
+-- Insert Notes
+INSERT INTO Note (projectID, note) 
+SELECT TOP 1 projectID, 'Initial research phase started.' FROM Project
+UNION ALL
+SELECT TOP 1 projectID, 'Awaiting funding approval.' FROM Project ORDER BY projectID DESC;
+
+-- Insert Tasks
+INSERT INTO Task (projectID, title, dueDate, assignDate, employeeID, adminID)
+SELECT TOP 1 p.projectID, 'Develop AI Model', '2025-04-01', '2025-02-15', e.employeeID, a.adminID 
+FROM Project p
+CROSS JOIN Employee e
+CROSS JOIN Admin a
+ORDER BY p.projectID;
+
+INSERT INTO Task (projectID, title, dueDate, assignDate, employeeID, adminID)
+SELECT TOP 1 p.projectID, 'Set up Robotics Lab', '2025-10-01', '2025-03-10', e.employeeID, a.adminID 
+FROM Project p
+CROSS JOIN Employee e
+CROSS JOIN Admin a
+ORDER BY p.projectID DESC;
+
+-- Insert Meeting
+INSERT INTO Meeting (adminID, representativeID, title, minutes)
+SELECT TOP 1 a.adminID, r.representativeID, 'Partnership Kickoff', 'Discussed initial project scope and collaboration terms'
+FROM Admin a
+CROSS JOIN Representative r;
