@@ -35,7 +35,7 @@ namespace Lab1.Pages.Admin
             {
                 return Page();
             }
-            RedirectToPage("AddUser");
+            return RedirectToPage("AddUser");
             //code for saving to DB goes here
         }
 
@@ -46,7 +46,7 @@ namespace Lab1.Pages.Admin
             {
                 return Page();
             }
-            RedirectToPage("AddUser");
+            return RedirectToPage("AddUser");
             //code for saving to DB here
         }
 
@@ -57,7 +57,7 @@ namespace Lab1.Pages.Admin
             {
                 return Page();
             }
-            RedirectToPage("AddUser");
+            return RedirectToPage("AddUser");
             //code for saving to DB here
         }
 
@@ -68,7 +68,7 @@ namespace Lab1.Pages.Admin
             {
                 return Page();
             }
-            RedirectToPage("AddUser");
+            return RedirectToPage("AddUser");
             //code for saving to DB here
         }
 

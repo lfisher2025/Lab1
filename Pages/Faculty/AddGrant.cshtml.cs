@@ -60,7 +60,7 @@ namespace Lab1.Pages.Faculty
             {
                 return Page();
             }
-            RedirectToPage("AddGrant");
+            return RedirectToPage("AddGrant");
         }
 
     }
