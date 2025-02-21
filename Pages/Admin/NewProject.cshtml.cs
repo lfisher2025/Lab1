@@ -1,4 +1,6 @@
+using System.Data.SqlClient;
 using Lab1.Pages.Data_Classes;
+using Lab1.Pages.DB;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -18,12 +20,31 @@ namespace Lab1.Pages.Admin
         [BindProperty]
         public String DueDate { get; set; }
 
-//[BindProperty]
-//public List<Grant> 
+        [BindProperty]
+        public List<Grant> GrantDropdown { get; set; } = new List<Grant>();
 
 
         public void OnGet()
         {
+            //Retrieve a list of grants from the db to display to the user
+            SqlDataReader grantResult = DBClass.ViewAllGrants();
+
+            while (grantResult.Read())
+            {
+                GrantDropdown.Add(new Grant
+                {
+                    GrantID = int.Parse(grantResult["grantID"].ToString()),
+                    Name = grantResult["name"].ToString()
+
+                });
+            }
+
+        }
+
+        public void OnPost()
+        {
+            Project newProject = new Project();
+
         }
     }
 }

@@ -56,7 +56,7 @@ namespace Lab1.Pages.DB
 
         public static SqlDataReader ViewAllGrants()
         {
-            string GrantSelectString = "SELECT Name FROM GRANT;";
+            string GrantSelectString = "SELECT grantID, name FROM Grants;";
             SqlCommand cmdViewGrants = new SqlCommand();
             cmdViewGrants.Connection = Lab1DBConnection;
             cmdViewGrants.Connection.ConnectionString = Lab1DBConnString;
@@ -102,6 +102,28 @@ namespace Lab1.Pages.DB
             Lab1DBConnection.Open();
 
         }
+
+        public static SqlDataReader ViewAdminProjects(int AdminID)
+        {
+            string ViewAdminProjectsString = "SELECT (Project.name, Grant.amount , Project.dueDate) " +
+                "FROM Project JOIN Grant ON Project.grantID = Grant.grantID" +
+                "WHERE Project.adminID = " + AdminID + ";";
+
+            SqlCommand cmdViewAdminProjects = new SqlCommand();
+            cmdViewAdminProjects.Connection = Lab1DBConnection; 
+            cmdViewAdminProjects.Connection.ConnectionString = Lab1DBConnString;
+            cmdViewAdminProjects.CommandText = ViewAdminProjectsString;
+            Lab1DBConnection.Open();
+
+            SqlDataReader tempReader = cmdViewAdminProjects.ExecuteReader();
+            return tempReader;
+
+        }
+
+        //public static SqlDataReader ViewProject(int ProjectID)
+        //{
+        //    string viewProjectString = "SELECT * FROM PROJECT
+        //}
 
     }
 }
