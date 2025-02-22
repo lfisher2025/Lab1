@@ -54,9 +54,33 @@ namespace Lab1.Pages.Admin
 
             DBClass.AddBusinessPartner(NewPartner);
 
+            DBClass.Lab1DBConnection.Close();  
+        }
+
+        public IActionResult OnPostPopulateHandler()
+        {
+            ModelState.Clear();
+
+            CompanyName = "JMU Company";
+            RepresentativeID = 4;
+            Status = "Prospect";
+
+            BusinessPartner NewPartner = new BusinessPartner();
+            NewPartner.name = CompanyName;
+            NewPartner.status = Status;
+            NewPartner.representativeID = RepresentativeID;
+
+            DBClass.AddBusinessPartner(NewPartner);
+
             DBClass.Lab1DBConnection.Close();
 
-            
+            return Page();
+        }
+
+        public IActionResult OnPostClearHandler()
+        {
+            ModelState.Clear();
+            return Page();
         }
     }
 }

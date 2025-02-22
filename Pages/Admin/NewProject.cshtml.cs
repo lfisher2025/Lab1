@@ -57,5 +57,37 @@ namespace Lab1.Pages.Admin
             DBClass.AddNewProject(newProject, UserID);
 
         }
+
+        public IActionResult OnPostPopulateHandler()
+        {
+            ModelState.Clear();
+
+            GrantID = 1;
+            EmployeeID = 6;
+            ProjectName = "JMU Project";
+            DueDate = DateTime.Now;
+
+            Project newProject = new Project();
+            newProject.grantID = GrantID;
+            newProject.employeeID = EmployeeID;
+            newProject.name = ProjectName;
+            newProject.DueDate = DueDate;
+
+            CurrentUserID = HttpContext.Session.GetString("UserID");
+            int UserID = Convert.ToInt32(CurrentUserID);
+
+            DBClass.AddNewProject(newProject, UserID);
+
+            return Page();
+
+        }
+
+        public IActionResult OnPostClearHandler()
+        {
+            ModelState.Clear();
+            return Page();
+        }
     }
+
+
 }

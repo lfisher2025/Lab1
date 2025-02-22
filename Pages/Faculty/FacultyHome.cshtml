@@ -5,14 +5,10 @@
 
 
 <h2>Multiple Select Box</h2>
-<form asp-page-handler="MultiSelect" method="post">
-    <select class="form-select" asp-for="Projects" multiple>
-        <option value="0">Project 1</option>
-        <option value="1">Project 2</option>
-        <option value="2">Project 3</option>
-        <option value="3">Project 4</option>
+<form asp-page-handler="FacultyHome" method="post">
+    <label for="projectDropdown">Select a Project: </label>
+    <select class="form-select" asp-for="SelectedProject" asp-items="Model.Projects" class="form-control">
     </select>
     <br />
-    <button class="btn btn-primary">Submit Selections</button>
 </form>
 <a asp-page="/Faculty/AddGrant" class="btn btn-info">Add Grant</a>

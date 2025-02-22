@@ -53,14 +53,27 @@ namespace Lab1.Pages.Faculty
 
             DBClass.Lab1DBConnection.Close();
         }
-        public IActionResult OnGrantPost(AddGrantModel Grant)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-            return RedirectToPage("AddGrant");
-        }
 
+        public IActionResult OnPostPopulateHandler()
+        {
+            GrantName = "Education Grant";
+            Amount = 10000.00;
+
+            Grant NewGrant = new Grant();
+            NewGrant.Name = GrantName;
+            NewGrant.Amount = Amount;
+            NewGrant.BusinessID = BusinessPartnerID;
+
+            DBClass.AddGrant(NewGrant);
+
+            DBClass.Lab1DBConnection.Close();
+            
+            return Page();
+        }
+        public IActionResult OnPostClearHandler()
+        {
+            ModelState.Clear();
+            return Page();
+        }
     }
 }

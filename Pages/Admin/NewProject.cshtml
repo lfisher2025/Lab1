@@ -37,4 +37,8 @@
 	<!--The form should have a button here to add a task at the time of creation, functionality added later-->
 
 	<button type="submit" class="btn btn-primary">Submit</button>
+
+	<!--Populate button to  autofill values during a presentation.-->
+	<button asp-page="NewProject" asp-page-handler="PopulateHandler" formnovalidate>Populate</button>
+	<button asp-page="NewProject" asp-page-handler="ClearHandler" formnovalidate>Clear</button>
 </form>

@@ -302,5 +302,20 @@ namespace Lab1.Pages.DB
             Lab1DBConnection.Close();
 
         }
+
+        public static  SqlDataReader ViewFacultyProjects(int facultyID)
+        {
+            string ViewEmplyProjString = "SELECT * FROM PROJECT WHERE facultyID = " + facultyID + ";";
+            SqlCommand cmdViewEmplyProj = new SqlCommand();
+            cmdViewEmplyProj.Connection = Lab1DBConnection; 
+            cmdViewEmplyProj.Connection.ConnectionString = Lab1DBConnString;
+            cmdViewEmplyProj.CommandText = ViewEmplyProjString;
+            Lab1DBConnection.Open();
+
+            SqlDataReader tempReader = cmdViewEmplyProj.ExecuteReader();
+            return tempReader;
+
+            Lab1DBConnection.Close();
+        }
     }
 }

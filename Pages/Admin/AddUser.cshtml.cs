@@ -44,5 +44,37 @@ namespace Lab1.Pages.Admin
             DBClass.AddUser(NewUser,UserID);
         }
 
+        public IActionResult OnPostPopulateHandler()
+        {
+            ModelState.Clear();
+
+            FirstName = "Luke";
+            LastName = "Fisher";
+            Email = "fishe4lj@dukes.jmu.edu";
+            MiddleInitial = "J";
+            PhoneNumber = "1234567890";
+            UserType = "employee";
+
+            User NewUser = new User();
+            NewUser.FirstName = FirstName;
+            NewUser.LastName = LastName;
+            NewUser.Email = Email;
+            NewUser.MiddleInitial = MiddleInitial;
+            NewUser.PhoneNumber = PhoneNumber;
+            NewUser.UserType = UserType;
+
+            currentUserID = HttpContext.Session.GetString("UserID");
+            int UserID = Convert.ToInt32(currentUserID);
+
+            DBClass.AddUser(NewUser, UserID);
+
+            return Page();
+        }
+
+        public IActionResult OnPostClearHandler()
+        {
+            ModelState.Clear();
+            return Page();
+        }
     }
 }

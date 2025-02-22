@@ -41,33 +41,8 @@
 			<option value="3">Rejected</option>
 		</select>
 	</div>
+
 	<button type="submit" class="btn btn-primary">Submit</button>
+	<button asp-page="AddGrant" asp-page-handler="PopulateHandler" formnovalidate>Populate</button>
+	<button asp-page="AddGrant" asp-page-handler="ClearHandler" formnovalidate>Clear</button>
 </form>
-<!--This is the form for creating grant workflow-->
-@* <form method="post">
-	<div>
-		<label asp-for="Grant.GrantName">Grant Name</label>
-		<input asp-for="Grant.GrantName" />
-	</div>
-	<div>
-		<label asp-for="Grant.Amount">Grant Award Amount</label>
-		<input asp-for="Grant.Amount" />
-	</div>
-	<div>
-		<label asp-for="Grant.AwardDate">Grant Award Date</label>
-		<input asp-for="Grant.AwardDate" />
-	</div>
-	<div>
-		<label asp-for="Grant.SubmissionDate">Submission Date</label>
-		<input asp-for="Grant.SubmissionDate" />
-	</div>
-	<div>
-		<label asp-for="Grant.FacultyID">Insert FacultyID of lead Faculty for Grant</label>
-		<input asp-for="Grant.FacultyID" />
-	</div>
-	<div>
-		<label asp-for="Grant.BusinessPartnerID">Business partner ID sponsoring grant</label>
-		<input asp-for="Grant.BusinessPartnerID" />
-	</div>
-	<button type="Submit">Create</button>
-</form> *@
