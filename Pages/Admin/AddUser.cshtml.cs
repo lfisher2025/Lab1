@@ -11,16 +11,13 @@ namespace Lab1.Pages.Admin
     {
         [BindProperty]
         public String UserType { get; set; }
-        public AddUserModel Representative { get; set; }
-        public AddUserModel Employee { get; set; }
-        public AddUserModel Faculty { get; set; }
-        public AddUserModel Admin { get; set; }
+    
         public String SelectUser { get; set; }
-        [Required] public String FirstName { get; set; }
-        [Required] public String LastName { get; set; }
-        [Required] public String MiddleInitial { get; set; }
-        [Required] public String PhoneNumber { get; set; }
-        [Required] public String Email { get; set; }
+        [BindProperty] public String FirstName { get; set; }
+        [BindProperty] public String LastName { get; set; }
+        [BindProperty] public String MiddleInitial { get; set; }
+        [BindProperty] public String PhoneNumber { get; set; }
+        [BindProperty] public String Email { get; set; }
         public String currentUserID { get; set; }
       
 

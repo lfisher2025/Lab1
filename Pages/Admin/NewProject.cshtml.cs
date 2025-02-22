@@ -23,6 +23,8 @@ namespace Lab1.Pages.Admin
         [BindProperty]
         public List<Grant> GrantDropdown { get; set; } = new List<Grant>();
 
+        public String CurrentUserID;
+
 
         public void OnGet()
         {
@@ -38,7 +40,7 @@ namespace Lab1.Pages.Admin
 
                 });
             }
-
+            DBClass.Lab1DBConnection.Close();
         }
 
         public void OnPost()
@@ -48,6 +50,11 @@ namespace Lab1.Pages.Admin
             newProject.employeeID = EmployeeID;
             newProject.name = ProjectName;
             newProject.DueDate = DueDate;
+
+            CurrentUserID = HttpContext.Session.GetString("UserID");
+            int UserID = Convert.ToInt32(CurrentUserID);
+
+            DBClass.AddNewProject(newProject, UserID);
 
         }
     }

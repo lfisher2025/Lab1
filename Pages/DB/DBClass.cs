@@ -35,6 +35,17 @@ namespace Lab1.Pages.DB
             cmdAddUser.Connection.ConnectionString = Lab1DBConnString;
             cmdAddUser.CommandText = addUserQuery;
             Lab1DBConnection.Open();
+            int rowsAffected = cmdAddUser.ExecuteNonQuery(); // Ensures execution
+
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Data inserted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("No rows were inserted.");
+            }
+
             Lab1DBConnection.Close();
 
             string getNewUserID = "SELECT userID FROM Users WHERE firstName = " + "'" + newUser.FirstName + "'" + ";";
@@ -81,6 +92,17 @@ namespace Lab1.Pages.DB
             cmdAddEmployee.Connection.ConnectionString = Lab1DBConnString;
             cmdAddEmployee.CommandText = addEmplyString;
             Lab1DBConnection.Open();
+            int rowsAffected = cmdAddEmployee.ExecuteNonQuery(); // Ensures execution
+
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Data inserted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("No rows were inserted.");
+            }
+
             Lab1DBConnection.Close();
         }
         public static void Addfaculty(int IDResult)
@@ -96,6 +118,17 @@ namespace Lab1.Pages.DB
             cmdAddRep.Connection.ConnectionString = Lab1DBConnString;
             cmdAddRep.CommandText = addRepString;
             Lab1DBConnection.Open();
+            int rowsAffected = cmdAddRep.ExecuteNonQuery(); // Ensures execution
+
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Data inserted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("No rows were inserted.");
+            }
+
             Lab1DBConnection.Close();
         } 
 
@@ -107,7 +140,19 @@ namespace Lab1.Pages.DB
             cmdAddAdmin.Connection.ConnectionString = Lab1DBConnString;
             cmdAddAdmin.CommandText = addAdminString;
             Lab1DBConnection.Open();
+            int rowsAffected = cmdAddAdmin.ExecuteNonQuery(); // Ensures execution
+
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Data inserted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("No rows were inserted.");
+            }
+
             Lab1DBConnection.Close();
+            
         }
 
         public static SqlDataReader ViewAllGrants()
@@ -145,17 +190,47 @@ namespace Lab1.Pages.DB
             cmdAddGrant.Connection.ConnectionString = Lab1DBConnString;
             cmdAddGrant.CommandText = AddGrantString;
             Lab1DBConnection.Open();
+            int rowsAffected = cmdAddGrant.ExecuteNonQuery(); // Ensures execution
+
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Data inserted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("No rows were inserted.");
+            }
+
+            Lab1DBConnection.Close();
         }
 
         public static void AddBusinessPartner(BusinessPartner NewBusinessPartner)
         {
-            string AddPartnerString = "INSERT INTO BusinessPartner (name, representativeID ,Status) VALUES(" + NewBusinessPartner.name + "," + NewBusinessPartner.representativeID
-                + "," + NewBusinessPartner.status + ");";
+            string AddPartnerString = "INSERT INTO BusinessPartner (name, representativeID, status) VALUES ('" +
+            NewBusinessPartner.name + "', " +
+            NewBusinessPartner.representativeID + ", '" +
+            NewBusinessPartner.status + "');";
+
             SqlCommand cmdAddPartner = new SqlCommand();
             cmdAddPartner.Connection = Lab1DBConnection;
             cmdAddPartner.Connection.ConnectionString = Lab1DBConnString;
             cmdAddPartner.CommandText = AddPartnerString;
             Lab1DBConnection.Open();
+
+
+            int rowsAffected = cmdAddPartner.ExecuteNonQuery(); // Ensures execution
+
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Data inserted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("No rows were inserted.");
+            }
+
+            
+
 
         }
 
@@ -181,7 +256,7 @@ namespace Lab1.Pages.DB
         //    string viewProjectString = "SELECT * FROM PROJECT
         //}
 
-        public static void AddNewProject(Project project)
+        public static void AddNewProject(Project project, int currentUserID)
         {
             string getFacultyString = "SELECT facultyID FROM FacultyGrant WHERE grantID = " + project.grantID + ";";
             SqlCommand cmdGetFaculty = new SqlCommand();
@@ -200,15 +275,32 @@ namespace Lab1.Pages.DB
             Lab1DBConnection.Close();
 
             string AddProjectString = "INSERT INTO PROJECT (grantID, employeeID, adminID, facultyID, name, dueDate) VALUES (" +
-                project.grantID + "," + project.employeeID + "," + "12" + "," + facultyResult + "," + project.name + "," + project.DueDate + ");";
+            project.grantID + ", " +
+            project.employeeID + ", " +
+            currentUserID + ", " +
+            facultyResult + ", '" +  // String values enclosed in single quotes
+            project.name + "', '" +  // Name needs single quotes
+            project.DueDate.ToString("yyyy-MM-dd") + "');"; // Date formatted properly
 
             SqlCommand cmdAddProject = new SqlCommand();
             cmdAddProject.Connection = Lab1DBConnection;
             cmdAddProject.Connection.ConnectionString = Lab1DBConnString;
             cmdAddProject.CommandText = AddProjectString;
             Lab1DBConnection.Open();
+            int rowsAffected = cmdAddProject.ExecuteNonQuery();
 
-          
+
+            if (rowsAffected > 0)
+            {
+                Console.WriteLine("Data inserted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("No rows were inserted.");
+            }
+
+            Lab1DBConnection.Close();
+
         }
     }
 }
