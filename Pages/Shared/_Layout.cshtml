@@ -34,8 +34,40 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Employee/EmployeeHome">Employees</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-page="/Pages/Admin/AdminHome">Admin</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-page="/Pages/Admin//AdminHome/AddBusinessPartner">Add Partner</a></li>
+                                <li><a class="dropdown-item" asp-page="/Pages/Admin/AdminHome/AddUser">Add User</a></li>
+                                <li><a class="dropdown-item" asp-page="/Pages/Admin/AdminHome/AdminViewProject">Projects</a></li>
+                                <li><a class="dropdown-item" asp-page="/Pages/Admin/AdminHome/ManageBusinessPartners">Manage Partners</a></li>
+                                <li><a class="dropdown-item" asp-page="/Pages/Admin/AdminHome/Meetings">Meetings</a></li>
+                                <li><a class="dropdown-item" asp-page="/Pages/Admin/AdminHome/NewProject">Start a new project</a></li>
+                                <li><a class="dropdown-item" asp-page="/Pages/BusinessPartners/BusinessPartnerHome">Business Partners</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-page="/Pages/Employee/EmployeeHome">Employees</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-page="/Pages/Employee/EmployeeHome/EmployeeViewProject">Projects</a></li>
+                                <li><a class="dropdown-item" asp-page="/Pages/Faculty/FacultyHome">Faculty</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-page="/Pages/Faculty/FacultyHome/AddGrant">Add Grant</a></li>
+                                <li><a class="dropdown-item" asp-page="/Pages/Faculty/FacultyHome/ViewGrant">View Grants</a></li>
+
+                            </ul>
+                        </li>
                     </ul>
                 </div>
+                <button type="button" class="btn btn-primary position-relative" onclick="location.href='/Pages/Messaging/Inbox'">
+                    Inbox
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        55+
+                        <span class="visually-hidden">unread messages</span>
+                    </span>
+                </button>
             </div>
         </nav>
     </header>
