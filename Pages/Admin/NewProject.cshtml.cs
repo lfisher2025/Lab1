@@ -20,6 +20,8 @@ namespace Lab1.Pages.Admin
         [BindProperty]
         public DateTime DueDate { get; set; }
 
+        public String ProjectNotes { get; set; }
+
         [BindProperty]
         public List<Grant> GrantDropdown { get; set; } = new List<Grant>();
 

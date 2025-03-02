@@ -21,7 +21,8 @@ namespace Lab1.Pages.Faculty
         public int BusinessPartnerID { get; set; }
         [BindProperty]
         public int StatusSelect { get; set; }
-        public String Status;
+        public  String GrantNotes { get; set; }
+        public 
         public AddGrantModel Grant { get; set; }
 
 
