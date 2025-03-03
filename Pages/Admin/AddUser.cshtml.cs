@@ -18,7 +18,10 @@ namespace Lab1.Pages.Admin
         [BindProperty] public String MiddleInitial { get; set; }
         [BindProperty] public String PhoneNumber { get; set; }
         [BindProperty] public String Email { get; set; }
+        [BindProperty] public String Username { get; set; }
+        [BindProperty] public String Password { get; set; } 
         public String currentUserID { get; set; }
+        
       
 
 
@@ -41,7 +44,10 @@ namespace Lab1.Pages.Admin
             currentUserID = HttpContext.Session.GetString("UserID");
             int UserID = Convert.ToInt32(currentUserID);
 
-            DBClass.AddUser(NewUser,UserID);
+            int newID = DBClass.AddUser(NewUser,UserID);
+            DBClass.CreateHashedUser(Username, Password, newID);
+            DBClass.Lab1DBConnection.Close();
+
         }
 
         public IActionResult OnPostPopulateHandler()
@@ -54,20 +60,6 @@ namespace Lab1.Pages.Admin
             MiddleInitial = "J";
             PhoneNumber = "1234567890";
             UserType = "employee";
-
-            User NewUser = new User();
-            NewUser.FirstName = FirstName;
-            NewUser.LastName = LastName;
-            NewUser.Email = Email;
-            NewUser.MiddleInitial = MiddleInitial;
-            NewUser.PhoneNumber = PhoneNumber;
-            NewUser.UserType = UserType;
-
-            currentUserID = HttpContext.Session.GetString("UserID");
-            int UserID = Convert.ToInt32(currentUserID);
-
-            DBClass.AddUser(NewUser, UserID);
-
             return Page();
         }
 

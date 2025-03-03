@@ -23,7 +23,7 @@ namespace Lab1.Pages.Faculty
 
             if (string.IsNullOrEmpty(UserID))
             {
-                return RedirectToPage("/EnterID"); // Redirect if no ID is stored
+                return RedirectToPage("/HashedLogin/HashedLogin"); // Redirect if not currently logged in
             }
 
 

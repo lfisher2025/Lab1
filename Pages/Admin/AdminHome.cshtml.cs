@@ -15,14 +15,14 @@ namespace Lab1.Pages.Admin
 
         public IActionResult OnGet()
         {
-            UserID = HttpContext.Session.GetString("UserID");
+            UserID = HttpContext.Session.GetString("username");
 
             if (string.IsNullOrEmpty(UserID))
             {
-                return RedirectToPage("/EnterID"); // Redirect if no ID is stored
+                return RedirectToPage("/HashedLogin/HashedLogin"); // Redirect if not logged in
             }
 
-            SqlDataReader projectReader = DBClass.ViewAdminProjects(Convert.ToInt32(UserID));
+            SqlDataReader projectReader = DBClass.ViewAdminProjects();
 
             while (projectReader.Read())
             {

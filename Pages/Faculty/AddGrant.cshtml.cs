@@ -60,15 +60,6 @@ namespace Lab1.Pages.Faculty
             GrantName = "Education Grant";
             Amount = 10000.00;
 
-            Grant NewGrant = new Grant();
-            NewGrant.Name = GrantName;
-            NewGrant.Amount = Amount;
-            NewGrant.BusinessID = BusinessPartnerID;
-
-            DBClass.AddGrant(NewGrant);
-
-            DBClass.Lab1DBConnection.Close();
-            
             return Page();
         }
         public IActionResult OnPostClearHandler()

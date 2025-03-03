@@ -5,13 +5,13 @@
 
 <h1>Add New User:</h1>
 
-<form asp-page-handler="SingleSelect" method="post">
+<form asp-page-handler="AddUser" method="post">
     <select asp-for="UserType" class="form-select">
         <option selected>Select A Type</option>
         <option value="representative">Representative</option>
         <option value="faculty">Faculty</option>
         <option value="employee">Employee</option>
-        <option value="admin">Admin</option>
+        
     </select>
     <br />
 
@@ -36,6 +36,14 @@
         <input asp-for="Email" class="form-control" />
     </div>
 
+    <label>Enter New Username:</label>
+    <input asp-for="Username" class="form-control" placeholder="Enter Username" />
+    <span asp-validation-for="Username" class="text-danger">Please enter a Username</span>
+
+    <label>Enter New User's Password:</label>
+    <input asp-for="Password" class="form-control" type="password" />
+    <span asp-validation-for="Password" class="text-danger">Please enter a Password</span>
+    <br />
     <button class="btn btn-primary">Submit</button>
     <button asp-page="AddUser" asp-page-handler="PopulateHandler" formnovalidate>Populate</button>
     <button asp-page="AddUser" asp-page-handler="ClearHandler" formnovalidate>Clear</button>

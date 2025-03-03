@@ -127,3 +127,34 @@ CREATE TABLE Meeting (
     FOREIGN KEY (adminID) REFERENCES Admin(adminID),
     FOREIGN KEY (representativeID) REFERENCES Representative(representativeID)
 );
+
+-- Create Procedure to insert new user and capture the generated ID for insertion into AUTH
+CREATE PROCEDURE InsertUserAndGetID
+    @FirstName VARCHAR(50),
+    @LastName VARCHAR(50),
+    @MiddleInitial CHAR(1) NULL,
+    @Role VARCHAR(50),
+    @PhoneNumber VARCHAR(20),
+    @Email VARCHAR(100),
+    @NewUserID INT OUTPUT  -- Output parameter for UserID
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO Users (FirstName, LastName, MiddleInitial, Role, PhoneNumber, Email)
+    VALUES (@FirstName, @LastName, @MiddleInitial, @Role, @PhoneNumber, @Email);
+
+    SET @NewUserID = SCOPE_IDENTITY(); -- Get the newly inserted UserID
+END;
+
+
+
+
+-- AUTH DB CREATE TABLE
+
+CREATE TABLE HashedCredentials (
+UserID int PRIMARY KEY,
+Username nvarchar(50),
+Password nvarchar(MAX),
+);
+

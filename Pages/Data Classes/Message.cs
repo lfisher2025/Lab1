@@ -7,14 +7,16 @@ namespace Lab1.Pages.Data_Classes
         [Required]
         public int messageID { get; set; }
         [Required]
-        public int senderID { get; set; }
+        public string sender { get; set; }
         [Required]
-        public int recipientID { get; set; }
+        public string recipient { get; set; }
         [Required]
-        public String content { get; set; }
+        public string content { get; set; }
         [Required]
-        public String readStatus { get; set; }
+        public string title { get; set; }
         [Required]
-        public DateTime DATETIME { get; set; }
+        public bool readStatus { get; set; }
+        [Required]
+        public DateTime timestamp { get; set; }
     }
 }

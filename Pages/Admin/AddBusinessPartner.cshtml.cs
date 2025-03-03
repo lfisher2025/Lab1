@@ -65,15 +65,6 @@ namespace Lab1.Pages.Admin
             RepresentativeID = 4;
             Status = "Prospect";
 
-            BusinessPartner NewPartner = new BusinessPartner();
-            NewPartner.name = CompanyName;
-            NewPartner.status = Status;
-            NewPartner.representativeID = RepresentativeID;
-
-            DBClass.AddBusinessPartner(NewPartner);
-
-            DBClass.Lab1DBConnection.Close();
-
             return Page();
         }
 

@@ -81,3 +81,10 @@ INSERT INTO Meeting (adminID, representativeID, title, minutes)
 SELECT TOP 1 a.adminID, r.representativeID, 'Partnership Kickoff', 'Discussed initial project scope and collaboration terms'
 FROM Admin a
 CROSS JOIN Representative r;
+
+
+
+--AUTH INSERTS
+
+INSERT INTO HashedCredentials (UserID,Username,Password) VALUES (1,'CBRIDGE','password');
+INSERT INTO HashedCredentials (UserID,Username,Password) VALUES (2,'LFISHER','password');
