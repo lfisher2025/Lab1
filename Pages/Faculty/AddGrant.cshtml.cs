@@ -22,7 +22,7 @@ namespace Lab1.Pages.Faculty
         [BindProperty]
         public int StatusSelect { get; set; }
         public  String GrantNotes { get; set; }
-        public 
+        public String Status {  get; set; }
         public AddGrantModel Grant { get; set; }
 
 
