@@ -45,6 +45,7 @@ namespace Lab1.Pages.Admin
             int UserID = Convert.ToInt32(currentUserID);
 
             int newID = DBClass.AddUser(NewUser,UserID);
+            DBClass.Lab1DBConnection.Close();
             DBClass.CreateHashedUser(Username, Password, newID);
             DBClass.Lab1DBConnection.Close();
 

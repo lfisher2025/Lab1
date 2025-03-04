@@ -9,7 +9,7 @@ namespace Lab1.Pages.Messaging
 {
     public class InboxModel : PageModel 
     {
-        public List<Message> Messages { get; set; }
+        public List<Message> Messages { get; set; } = new List<Message>();
 
         public void OnGet()
         {
@@ -30,6 +30,8 @@ namespace Lab1.Pages.Messaging
                 });
 
             }
+            MessagesReader.Close();
+            DBClass.Lab1DBConnection.Close();
         }
     }
 

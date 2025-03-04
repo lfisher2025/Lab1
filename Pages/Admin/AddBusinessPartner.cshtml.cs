@@ -19,8 +19,15 @@ namespace Lab1.Pages.Admin
         public String Status;
 
         //Eventually, the OnGet method will need to select the representatives from the database for a user to select one to attach to the business
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            string Username = HttpContext.Session.GetString("username");
+
+            if (string.IsNullOrEmpty(Username))
+            {
+                return RedirectToPage("/HashedLogin/HashedLogin"); // Redirect if not logged in
+            }
+            else { return Page(); }
         }
 
         public void OnPost()

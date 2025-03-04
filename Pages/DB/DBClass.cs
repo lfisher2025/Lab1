@@ -22,7 +22,7 @@ namespace Lab1.Pages.DB
             "Server=localhost;Database=Lab1;Trusted_Connection=True";
 
         private static readonly String? AuthConnString =
-            "Server=Localhost;Database=AUTH;Trused_Connection=True";
+            "Server=Localhost;Database=AUTH;Trusted_Connection=True";
 
 
 
@@ -40,6 +40,7 @@ namespace Lab1.Pages.DB
             cmdAddUser.Connection = Lab1DBConnection;
             cmdAddUser.Connection.ConnectionString = Lab1DBConnString;
             cmdAddUser.CommandType = CommandType.StoredProcedure;
+            cmdAddUser.CommandText = "InsertUserAndGetID";
 
             // Add input parameters
             cmdAddUser.Parameters.AddWithValue("@FirstName", newUser.FirstName);
@@ -48,6 +49,7 @@ namespace Lab1.Pages.DB
             cmdAddUser.Parameters.AddWithValue("@Role", newUser.UserType);
             cmdAddUser.Parameters.AddWithValue("@PhoneNumber", newUser.PhoneNumber);
             cmdAddUser.Parameters.AddWithValue("@Email", newUser.Email);
+            cmdAddUser.Connection.Open();
 
             // Add output parameter for UserID
             SqlParameter outputIdParam = new SqlParameter("@NewUserID", SqlDbType.Int)
@@ -401,8 +403,8 @@ namespace Lab1.Pages.DB
             cmdGetMessages.Connection.Open();
 
             SqlDataReader tempreader = cmdGetMessages.ExecuteReader();
-
             return tempreader;
+            
         }
 
         public static int NewMessage(int senderID, int RecipientID, string Title, string Content)
@@ -437,6 +439,7 @@ namespace Lab1.Pages.DB
             cmdGetUsers.Connection = Lab1DBConnection;
             cmdGetUsers.Connection.ConnectionString = Lab1DBConnString;
             cmdGetUsers.CommandText = getUsersQuery;
+            cmdGetUsers.Connection.Open();
 
             SqlDataReader tempreader = cmdGetUsers.ExecuteReader();
 

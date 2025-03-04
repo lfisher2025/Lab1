@@ -1,9 +1,9 @@
 -- Insert Users
 INSERT INTO Users (firstName, lastName, middleInitial, role, phoneNumber, email) VALUES
-('John', 'Doe', 'A', 'faculty', '123-456-7890', 'jdoe@example.com'),
-('Jane', 'Smith', 'B', 'admin', '234-567-8901', 'jsmith@example.com'),
-('Robert', 'Brown', 'C', 'employee', '345-678-9012', 'rbrown@example.com'),
-('Emily', 'Davis', 'D', 'representative', '456-789-0123', 'edavis@example.com');
+('Cody', 'Bridge', 'M', 'faculty', '540-555-5964', 'bridg2cm@dukes.jmu.edu'),
+('Luke', 'Fisher', 'J', 'admin', '540-555-8901', 'fishe4lj@dukes.jmu.edu'),
+('Jeremy', 'Ezell', 'D', 'employee', '540-568-3222', 'ezelljd@jmu.edu'),
+('Carey', 'Cole', 'B', 'representative', '540-568-3439', 'colecb@jme.edu');
 
 -- Insert Admin
 INSERT INTO Admin (adminID) 
@@ -11,10 +11,10 @@ SELECT userID FROM Users WHERE role = 'admin';
 
 -- Insert Employee
 INSERT INTO Employee (employeeID, adminID) 
-SELECT u.userID, a.adminID 
-FROM Users u 
-JOIN Admin a ON a.adminID = a.adminID
-WHERE u.role = 'employee';
+SELECT userID, adminID 
+FROM Users 
+JOIN Admin ON adminID = adminID
+WHERE role = 'employee';
 
 -- Insert Representative
 INSERT INTO Representative (representativeID) 
@@ -38,7 +38,7 @@ INSERT INTO Grants (name, category, amount, businessID) VALUES
 
 -- Insert FacultyGrant
 INSERT INTO FacultyGrant (grantID, facultyID)
-SELECT g.grantID, f.facultyID FROM Grants g, Faculty f;
+SELECT grantID, facultyID FROM Grants, Faculty;
 
 -- Insert Projects
 INSERT INTO Project (grantID, employeeID, adminID, facultyID, name, dueDate, submissionDate, completeStatus) 
@@ -63,28 +63,26 @@ SELECT TOP 1 projectID, 'Awaiting funding approval.' FROM Project ORDER BY proje
 
 -- Insert Tasks
 INSERT INTO Task (projectID, title, dueDate, assignDate, employeeID, adminID)
-SELECT TOP 1 p.projectID, 'Develop AI Model', '2025-04-01', '2025-02-15', e.employeeID, a.adminID 
-FROM Project p
-CROSS JOIN Employee e
-CROSS JOIN Admin a
-ORDER BY p.projectID;
+SELECT TOP 1 projectID, 'Develop Database', '2025-04-01', '2025-02-15', Project.employeeID, Project.adminID 
+FROM Project
+CROSS JOIN Employee
+CROSS JOIN Admin
+ORDER BY projectID;
 
 INSERT INTO Task (projectID, title, dueDate, assignDate, employeeID, adminID)
-SELECT TOP 1 p.projectID, 'Set up Robotics Lab', '2025-10-01', '2025-03-10', e.employeeID, a.adminID 
-FROM Project p
-CROSS JOIN Employee e
-CROSS JOIN Admin a
-ORDER BY p.projectID DESC;
+SELECT TOP 1 projectID, 'Set up Networking Lab', '2025-10-01', '2025-03-10', Project.employeeID, Project.adminID 
+FROM Project
+CROSS JOIN Employee
+CROSS JOIN Admin
+ORDER BY projectID DESC;
 
 -- Insert Meeting
 INSERT INTO Meeting (adminID, representativeID, title, minutes)
-SELECT TOP 1 a.adminID, r.representativeID, 'Partnership Kickoff', 'Discussed initial project scope and collaboration terms'
-FROM Admin a
-CROSS JOIN Representative r;
+SELECT TOP 1 adminID, 4, 'Partnership Kickoff', 'Discussed project scope and expectations'
+FROM Admin
 
 
 
---AUTH INSERTS
-
-INSERT INTO HashedCredentials (UserID,Username,Password) VALUES (1,'CBRIDGE','password');
-INSERT INTO HashedCredentials (UserID,Username,Password) VALUES (2,'LFISHER','password');
+--AUTH DB INSERT STATEMENTS
+INSERT INTO HashedCredentials (UserID, Username, Password) VALUES (2, 'LFISHER', 'password');
+INSERT INTO HashedCredentials (UserID, Username, Password) VALUES (1, 'CBRIDGE', 'password');

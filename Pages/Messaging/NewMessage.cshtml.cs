@@ -35,6 +35,7 @@ namespace Lab1.Pages.Messaging
                     LastName = UsersReader.GetString(2),
                 });
             }
+            DBClass.Lab1DBConnection.Close();
         }
 
         public IActionResult OnPost()
@@ -56,7 +57,7 @@ namespace Lab1.Pages.Messaging
             if (rowsAffected > 0)
             {
                 ViewData["MessageStatus"] = "Message sent successfully!";
-                return RedirectToPage("/Inbox"); // Redirect to inbox after sending
+                return RedirectToPage("/Messaging/Inbox"); // Redirect to inbox after sending
             }
             else
             {

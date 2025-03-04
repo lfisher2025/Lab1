@@ -28,22 +28,34 @@ namespace Lab1.Pages.Admin
         public String CurrentUserID;
 
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            //Retrieve a list of grants from the db to display to the user
-            SqlDataReader grantResult = DBClass.ViewAllGrants();
 
-            while (grantResult.Read())
+            string Username = HttpContext.Session.GetString("username");
+
+            if (string.IsNullOrEmpty(Username))
             {
-                GrantDropdown.Add(new Grant
-                {
-                    GrantID = int.Parse(grantResult["grantID"].ToString()),
-                    Name = grantResult["name"].ToString()
-
-                });
+                return RedirectToPage("/HashedLogin/HashedLogin"); // Redirect if not logged in
             }
-            DBClass.Lab1DBConnection.Close();
+            else
+            {
+                //Retrieve a list of grants from the db to display to the user
+                SqlDataReader grantResult = DBClass.ViewAllGrants();
+
+                while (grantResult.Read())
+                {
+                    GrantDropdown.Add(new Grant
+                    {
+                        GrantID = int.Parse(grantResult["grantID"].ToString()),
+                        Name = grantResult["name"].ToString()
+
+                    });
+                }
+                DBClass.Lab1DBConnection.Close();
+                return Page();
+            }
         }
+
 
         public void OnPost()
         {

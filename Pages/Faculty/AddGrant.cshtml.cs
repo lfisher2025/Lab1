@@ -26,8 +26,15 @@ namespace Lab1.Pages.Faculty
         public AddGrantModel Grant { get; set; }
 
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            string Username = HttpContext.Session.GetString("username");
+
+            if (string.IsNullOrEmpty(Username))
+            {
+                return RedirectToPage("/HashedLogin/HashedLogin"); // Redirect if not logged in
+            }
+            else { return Page(); }
         }
 
         public void OnPost()
