@@ -261,32 +261,37 @@ namespace Lab1.Pages.DB
             }
             Lab1DBConnection.Close();
 
-            string AddProjectString = "INSERT INTO PROJECT (grantID, employeeID, adminID, facultyID, name, dueDate) VALUES (" +
-            project.grantID + ", " +
-            project.employeeID + ", " +
-            currentUserID + ", " +
-            facultyResult + ", '" +  // String values enclosed in single quotes
-            project.name + "', '" +  // Name needs single quotes
-            project.DueDate.ToString("yyyy-MM-dd") + "');"; // Date formatted properly
-
+            string AddProjectString = "INSERT INTO PROJECT (grantID, employeeID, adminID, facultyID, name, dueDate) " +
+                          "OUTPUT INSERTED.ProjectID VALUES (@grantID, @employeeID, @adminID, @facultyID, @name, @dueDate)";
             SqlCommand cmdAddProject = new SqlCommand();
             cmdAddProject.Connection = Lab1DBConnection;
             cmdAddProject.Connection.ConnectionString = Lab1DBConnString;
             cmdAddProject.CommandText = AddProjectString;
+  
+            cmdAddProject.Parameters.AddWithValue("@grantID", project.grantID);
+            cmdAddProject.Parameters.AddWithValue("@employeeID", project.employeeID);
+            cmdAddProject.Parameters.AddWithValue("@adminID", currentUserID);
+            cmdAddProject.Parameters.AddWithValue("@facultyID", facultyResult);
+            cmdAddProject.Parameters.AddWithValue("@name", project.name);
+            cmdAddProject.Parameters.AddWithValue("@dueDate", project.DueDate.ToString("yyyy-MM-dd"));
+
             Lab1DBConnection.Open();
-            int rowsAffected = cmdAddProject.ExecuteNonQuery();
-
-
-            if (rowsAffected > 0)
-            {
-                Console.WriteLine("Data inserted successfully.");
-            }
-            else
-            {
-                Console.WriteLine("No rows were inserted.");
-            }
+            int newProjectID = (int)cmdAddProject.ExecuteScalar();
 
             Lab1DBConnection.Close();
+
+            string NoteInsertQuery = "INSERT INTO Note (ProjectID, note) VALUES (@ProjectID, @note);";
+            SqlCommand cmdAddNote = new SqlCommand();
+            cmdAddNote.Connection = Lab1DBConnection;
+            cmdAddNote.Connection.ConnectionString = Lab1DBConnString;
+            cmdAddNote.CommandText = NoteInsertQuery;
+
+            cmdAddNote.Parameters.AddWithValue("@ProjectID",newProjectID);
+            cmdAddNote.Parameters.AddWithValue("@note", project.note);
+
+            Lab1DBConnection.Open();
+            cmdAddNote.ExecuteNonQuery();
+
 
         }
 

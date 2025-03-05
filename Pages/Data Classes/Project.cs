@@ -22,5 +22,8 @@ namespace Lab1.Pages.Data_Classes
         public DateTime submissionDate { get; set; }
         [Required]
         public DateTime completeStatus { get; set; }
+        public string note { get; set; }
+        public List<string> Notes { get; set; } = new List<string>();
+        
     }
 }

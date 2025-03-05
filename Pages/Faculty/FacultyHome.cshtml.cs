@@ -17,7 +17,7 @@ namespace Lab1.Pages.Faculty
 
         public IActionResult OnGet()
         {
-            // gather the current user ID, the populate button logs as a user, if you want to test with a valid employee id, enter 3 as your user id
+            // gather the current user ID, the populate button logs as a user, if you want to test with a valid employee id, enter 2 as your user id
 
             UserID = HttpContext.Session.GetString("UserID");
 

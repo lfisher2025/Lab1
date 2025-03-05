@@ -19,8 +19,8 @@ namespace Lab1.Pages.Admin
 
         [BindProperty]
         public DateTime DueDate { get; set; }
-
-        public String ProjectNotes { get; set; }
+        [BindProperty]
+        public string ProjectNotes { get; set; }
 
         [BindProperty]
         public List<Grant> GrantDropdown { get; set; } = new List<Grant>();
@@ -64,12 +64,14 @@ namespace Lab1.Pages.Admin
             newProject.employeeID = EmployeeID;
             newProject.name = ProjectName;
             newProject.DueDate = DueDate;
-
+            newProject.note = ProjectNotes;
+            
+           
             CurrentUserID = HttpContext.Session.GetString("UserID");
             int UserID = Convert.ToInt32(CurrentUserID);
 
             DBClass.AddNewProject(newProject, UserID);
-
+            DBClass.Lab1DBConnection.Close();
         }
 
         public IActionResult OnPostPopulateHandler()
@@ -80,6 +82,7 @@ namespace Lab1.Pages.Admin
             EmployeeID = 6;
             ProjectName = "JMU Project";
             DueDate = DateTime.Now;
+            ProjectNotes = "These are some notes.";
             return Page();
 
         }

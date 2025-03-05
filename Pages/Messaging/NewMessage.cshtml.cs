@@ -67,5 +67,16 @@ namespace Lab1.Pages.Messaging
             return Page();
 
         }
+
+        public IActionResult OnPostPopulateHandler()
+        {
+            ModelState.Clear();
+
+            RecipientID = 1;
+            Title = "Test";
+            Content = "This is a test message to display functionality.";
+
+            return Page();
+        }
     }
 }
