@@ -330,7 +330,7 @@ namespace Lab1.Pages.DB
             {
                 string correctHash = hashReader["Password"].ToString();
 
-                if (correctHash == Password) // PasswordHash.ValidatePassword(Password, correctHash) added when hashing later
+                if (PasswordHash.ValidatePassword(Password, correctHash)) 
                 {
                     return true;
                 }
@@ -355,7 +355,7 @@ namespace Lab1.Pages.DB
 
             cmdLogin.CommandText = loginQuery;
             cmdLogin.Parameters.AddWithValue("@Username", Username);
-            cmdLogin.Parameters.AddWithValue("@Password", Password); //PasswordHash.HashPassword(Password) When hashing
+            cmdLogin.Parameters.AddWithValue("@Password", PasswordHash.HashPassword(Password)); 
             cmdLogin.Parameters.AddWithValue("@UserID", UserID);
 
             cmdLogin.Connection.Open();

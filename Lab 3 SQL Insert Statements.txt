@@ -83,6 +83,3 @@ FROM Admin
 
 
 
---AUTH DB INSERT STATEMENTS
-INSERT INTO HashedCredentials (UserID, Username, Password) VALUES (2, 'LFISHER', 'password');
-INSERT INTO HashedCredentials (UserID, Username, Password) VALUES (1, 'CBRIDGE', 'password');
