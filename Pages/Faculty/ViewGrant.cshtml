@@ -24,22 +24,41 @@
 
     <button type="submit" class="btn btn-primary mt-2">Search</button>
 </form>
+@{ //Used ChatGPT to troubleshoot my switch case (Lines 30-37)
+    string GetStatusClass(string status)
+    {
+        return status switch
+        {
+            "Applied" => "text-primary",
+            "Pending" => "text-warning",
+            "Approved" => "text-success",
+            "Rejected" => "text-danger",
+            _ => "text-dark"
+        };
+    }
+}
 
 <table class="table mt-4">
     <thead>
         <tr>
+            <th>Grant ID</th>
             <th>Name</th>
             <th>Category</th>
+            <th>Status</th>
             <th>Amount</th>
+            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var grant in Model.Grants)
+        @foreach (var grant in Model.GrantInfo)
         {
             <tr>
+                <td>@grant.GrantID</td>
                 <td>@grant.Name</td>
                 <td>@grant.Category</td>
-                <td>@grant.Amount.ToString("C")</td> @*  *@
+                <td class="@GetStatusClass(grant.GrantStatus)">@grant.GrantStatus</td>
+                <td>@grant.Amount</td>
+                <td><a asp-page="/Faculty/EditGrant" class="btn btn-primary-outline">Edit Grant</a></td>
             </tr>
         }
     </tbody>

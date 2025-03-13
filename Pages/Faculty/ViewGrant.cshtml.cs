@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using Lab1.Pages.Data_Classes;
+using Lab1.Pages.DB;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -8,7 +10,7 @@ namespace Lab1.Pages.Faculty
 {
     public class ViewGrantModel : PageModel
     {
-        private readonly string connectionString = "Server=localhost;Database=Lab1;Trusted_Connection=True";
+        private readonly string connectionString = "Server=localhost;Database=Lab3A;Trusted_Connection=True";
 
         [BindProperty(SupportsGet = true)]
         public string SearchName { get; set; }
@@ -20,9 +22,27 @@ namespace Lab1.Pages.Faculty
         public double? SearchAmount { get; set; }
 
         public List<GrantData> Grants { get; set; } = new();
+        public List<Grant> GrantInfo { get; set; }
+        public ViewGrantModel()
+        {
+            GrantInfo = new List<Grant>();
+        }
 
         public void OnGet()
         {
+            SqlDataReader ViewGrants = DBClass.ViewAllGrants();
+            while (ViewGrants.Read())
+            {
+                GrantInfo.Add(new Grant
+                {
+                    GrantID = Int32.Parse(ViewGrants["GrantID"].ToString()),
+                    Name = ViewGrants["Name"].ToString(),
+                    Category = ViewGrants["Category"].ToString(),
+                    GrantStatus = ViewGrants["GrantStatus"].ToString(),
+                    Amount = Convert.ToDouble(ViewGrants["Amount"].ToString())
+                });
+            }
+            DBClass.Lab1DBConnection.Close();
             using (SqlConnection conn = new(connectionString))
             {
                 conn.Open();
