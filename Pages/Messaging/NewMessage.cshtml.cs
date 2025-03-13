@@ -64,6 +64,7 @@ namespace Lab1.Pages.Messaging
                 ViewData["MessageStatus"] = "Error sending message.";
             }
 
+            DBClass.Lab1DBConnection.Close();
             return Page();
 
         }

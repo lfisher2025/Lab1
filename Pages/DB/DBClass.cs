@@ -11,6 +11,8 @@ namespace Lab1.Pages.DB
     public class DBClass
     {
         public string UserID { get; set; }
+
+
         // Use this class to define methods that make connecting to
         // and retrieving data from the DB easier.
 
@@ -19,7 +21,7 @@ namespace Lab1.Pages.DB
 
         // Connection String - How to find and connect to DB
         private static readonly String? Lab1DBConnString =
-            "Server=localhost;Database=Lab1;Trusted_Connection=True";
+            "Server=localhost;Database=Lab3;Trusted_Connection=True";
 
         private static readonly String? AuthConnString =
             "Server=Localhost;Database=AUTH;Trusted_Connection=True";
@@ -96,13 +98,18 @@ namespace Lab1.Pages.DB
 
         public static void AddEmployee(int IDResult, int CurrentUserID)
         {
-            string addEmplyString = "INSERT INTO Employee (employeeID, adminID) VALUES (" + IDResult + "," + CurrentUserID + ");";
+            string addEmplyString = "INSERT INTO Employee (employeeID, adminID) VALUES (@IDResult,@CurrentUserID);";
             SqlCommand cmdAddEmployee = new SqlCommand();
             cmdAddEmployee.Connection = Lab1DBConnection;
             cmdAddEmployee.Connection.ConnectionString = Lab1DBConnString;
             cmdAddEmployee.CommandText = addEmplyString;
+
+            cmdAddEmployee.Parameters.AddWithValue("@IDResult", IDResult);
+            cmdAddEmployee.Parameters.AddWithValue("@CurrentUserID", CurrentUserID);
+
+
             Lab1DBConnection.Open();
-            int rowsAffected = cmdAddEmployee.ExecuteNonQuery(); // Ensures execution
+            int rowsAffected = cmdAddEmployee.ExecuteNonQuery(); 
 
             if (rowsAffected > 0)
             {
@@ -122,13 +129,16 @@ namespace Lab1.Pages.DB
 
         public static void AddRepresentative(int IDResult)
         {
-            string addRepString = "INSERT INTO Representative (representativeID) VALUES (" + IDResult + ");";
+            string addRepString = "INSERT INTO Representative (representativeID) VALUES (@IDResult);";
             SqlCommand cmdAddRep = new SqlCommand();
             cmdAddRep.Connection = Lab1DBConnection;
             cmdAddRep.Connection.ConnectionString = Lab1DBConnString;
             cmdAddRep.CommandText = addRepString;
+
+            cmdAddRep.Parameters.AddWithValue("@IDResult", IDResult);
+
             Lab1DBConnection.Open();
-            int rowsAffected = cmdAddRep.ExecuteNonQuery(); // Ensures execution
+            int rowsAffected = cmdAddRep.ExecuteNonQuery(); 
 
             if (rowsAffected > 0)
             {
@@ -158,11 +168,14 @@ namespace Lab1.Pages.DB
 
         public static SqlDataReader ViewUserMessages(int UserID)
         {
-            string MessageSelectString = "SELECT Content FROM Message WHERE senderID = " + UserID + ";";
+            string MessageSelectString = "SELECT Content FROM Message WHERE senderID = @UserID;";
             SqlCommand cmdViewMessage = new SqlCommand();
             cmdViewMessage.Connection = Lab1DBConnection;
             cmdViewMessage.Connection.ConnectionString = Lab1DBConnString;
             cmdViewMessage.CommandText = MessageSelectString;
+
+            cmdViewMessage.Parameters.AddWithValue("@UserID", UserID);
+
             Lab1DBConnection.Open();
 
             SqlDataReader tempreader = cmdViewMessage.ExecuteReader();
@@ -193,15 +206,19 @@ namespace Lab1.Pages.DB
 
         public static void AddBusinessPartner(BusinessPartner NewBusinessPartner)
         {
-            string AddPartnerString = "INSERT INTO BusinessPartner (name, representativeID, status) VALUES ('" +
-            NewBusinessPartner.name + "', " +
-            NewBusinessPartner.representativeID + ", '" +
-            NewBusinessPartner.status + "');";
+            string AddPartnerString = "INSERT INTO BusinessPartner (name, representativeID, status) VALUES ('@name',@repID,'@status');";
 
             SqlCommand cmdAddPartner = new SqlCommand();
             cmdAddPartner.Connection = Lab1DBConnection;
             cmdAddPartner.Connection.ConnectionString = Lab1DBConnString;
             cmdAddPartner.CommandText = AddPartnerString;
+
+            cmdAddPartner.Parameters.AddWithValue("@name", NewBusinessPartner.name);
+            cmdAddPartner.Parameters.AddWithValue("@repID", NewBusinessPartner.representativeID);
+            cmdAddPartner.Parameters.AddWithValue("@status", NewBusinessPartner.status);
+
+
+
             Lab1DBConnection.Open();
 
 
@@ -238,18 +255,18 @@ namespace Lab1.Pages.DB
 
         }
 
-        //public static SqlDataReader ViewProject(int ProjectID)
-        //{
-        //    string viewProjectString = "SELECT * FROM PROJECT
-        //}
+     
 
         public static void AddNewProject(Project project, int currentUserID)
         {
-            string getFacultyString = "SELECT facultyID FROM FacultyGrant WHERE grantID = " + project.grantID + ";";
+            string getFacultyString = "SELECT facultyID FROM FacultyGrant WHERE grantID = @grantID;";
             SqlCommand cmdGetFaculty = new SqlCommand();
             cmdGetFaculty.Connection = Lab1DBConnection;
             cmdGetFaculty.Connection.ConnectionString = Lab1DBConnString;
             cmdGetFaculty.CommandText = getFacultyString;
+
+            cmdGetFaculty.Parameters.AddWithValue("@grantID", project.grantID);
+
             Lab1DBConnection.Open();
 
             SqlDataReader facultyReader = cmdGetFaculty.ExecuteReader();
@@ -297,11 +314,14 @@ namespace Lab1.Pages.DB
 
         public static SqlDataReader ViewFacultyProjects(int facultyID)
         {
-            string ViewEmplyProjString = "SELECT * FROM PROJECT WHERE facultyID = " + facultyID + ";";
+            string ViewEmplyProjString = "SELECT * FROM PROJECT WHERE facultyID = @facultyID;";
             SqlCommand cmdViewEmplyProj = new SqlCommand();
             cmdViewEmplyProj.Connection = Lab1DBConnection;
             cmdViewEmplyProj.Connection.ConnectionString = Lab1DBConnString;
             cmdViewEmplyProj.CommandText = ViewEmplyProjString;
+
+            cmdViewEmplyProj.Parameters.AddWithValue("@facultyID", facultyID);
+
             Lab1DBConnection.Open();
 
             SqlDataReader tempReader = cmdViewEmplyProj.ExecuteReader();
