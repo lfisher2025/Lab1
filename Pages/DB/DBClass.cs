@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Lab1.Pages.DataClasses;
 using Lab1.Pages.Data_Classes;
 using System.Data;
+using Lab1.Pages.Admin;
+using Microsoft.VisualBasic;
 
 
 namespace Lab1.Pages.DB
@@ -290,7 +292,7 @@ namespace Lab1.Pages.DB
             cmdAddProject.Parameters.AddWithValue("@adminID", currentUserID);
             cmdAddProject.Parameters.AddWithValue("@facultyID", facultyResult);
             cmdAddProject.Parameters.AddWithValue("@name", project.name);
-            cmdAddProject.Parameters.AddWithValue("@dueDate", project.DueDate.ToString("yyyy-MM-dd"));
+            cmdAddProject.Parameters.AddWithValue("@dueDate", project.DueDate?.ToString("yyyy-MM-dd" ?? "N/A"));
 
             Lab1DBConnection.Open();
             int newProjectID = (int)cmdAddProject.ExecuteScalar();
@@ -469,6 +471,44 @@ namespace Lab1.Pages.DB
             SqlDataReader tempreader = cmdGetUsers.ExecuteReader();
 
             return tempreader;
+        }
+
+        public static SqlDataReader ViewProject(Project project)
+        {
+            string ViewProjectQuery = @"
+                SELECT p.name AS ProjectName, p.dueDate, p.submissionDate, p.completeStatus
+                FROM Project p
+                WHERE (@ProjectName IS NULL OR p.name LIKE '%' + @ProjectName + '%')
+                AND (@DueDate IS NULL OR p.dueDate = @DueDate OR p.dueDate IS NULL)
+                AND (@SubmissionDate IS NULL OR p.submissionDate = @SubmissionDate OR p.submissionDate IS NULL)
+                AND (@CompleteStatus IS NULL OR p.completeStatus = @CompleteStatus);";
+
+            SqlCommand cmdViewProjects = new SqlCommand();
+            cmdViewProjects.Connection = Lab1DBConnection;
+            cmdViewProjects.Connection.ConnectionString = Lab1DBConnString;
+            cmdViewProjects.CommandText = ViewProjectQuery;
+
+            cmdViewProjects.Parameters.AddWithValue("@ProjectName",
+                string.IsNullOrEmpty(project.name) ? (object)DBNull.Value : project.name);
+
+            cmdViewProjects.Parameters.AddWithValue("@DueDate",
+                project.DueDate == DateTime.MinValue ? (object)DBNull.Value : project.DueDate);
+
+            cmdViewProjects.Parameters.AddWithValue("@SubmissionDate",
+                project.submissionDate == DateTime.MinValue ? (object)DBNull.Value : project.submissionDate);
+
+            cmdViewProjects.Parameters.AddWithValue("@CompleteStatus",
+                project.CompleteStatus ?? (object)DBNull.Value);
+
+
+            cmdViewProjects.Connection.Open(); 
+
+            SqlDataReader tempreader = cmdViewProjects.ExecuteReader();
+
+            
+            return tempreader;
+
+            
         }
     }
 

@@ -17,11 +17,11 @@ namespace Lab1.Pages.Data_Classes
         [Required]
         public string name { get; set; }
         [Required]
-        public DateTime DueDate { get; set; }
+        public DateTime? DueDate { get; set; }
         [Required]
-        public DateTime submissionDate { get; set; }
+        public DateTime? submissionDate { get; set; }
         [Required]
-        public DateTime completeStatus { get; set; }
+        public bool? CompleteStatus { get; set; }
         public string note { get; set; }
         public List<string> Notes { get; set; } = new List<string>();
         
