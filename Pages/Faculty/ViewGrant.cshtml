@@ -1,4 +1,12 @@
 ﻿@page
 @model Lab1.Pages.Faculty.ViewGrantModel
-@{
-}
+
+<h2>Search Grants</h2>
+
+<form method="get">
+    <div class="form-group">
+        <label for="searchQuery">Search Grants:</label>
+        <input type="text" id="searchQuery" name="searchQuery" class="form-control" placeholder="Enter Grant Name or Category" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>

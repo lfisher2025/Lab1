@@ -15,14 +15,14 @@ namespace Lab1.Pages.Faculty
         [BindProperty]
         public DateTime AwardDate { get; set; }
         [BindProperty]
-        
+
         public int FacultyID { get; set; }
         [BindProperty]
         public int BusinessPartnerID { get; set; }
         [BindProperty]
         public int StatusSelect { get; set; }
-        public  String GrantNotes { get; set; }
-        public String Status {  get; set; }
+        public String GrantNotes { get; set; }
+        public String Status { get; set; }
         public AddGrantModel Grant { get; set; }
 
 
@@ -54,7 +54,7 @@ namespace Lab1.Pages.Faculty
 
             Grant NewGrant = new Grant();
             NewGrant.Name = GrantName;
-            NewGrant.Amount = Amount;   
+            NewGrant.Amount = Amount;
             NewGrant.BusinessID = BusinessPartnerID;
 
             DBClass.AddGrant(NewGrant);

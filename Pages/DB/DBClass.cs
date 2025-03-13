@@ -267,7 +267,7 @@ namespace Lab1.Pages.DB
             cmdAddProject.Connection = Lab1DBConnection;
             cmdAddProject.Connection.ConnectionString = Lab1DBConnString;
             cmdAddProject.CommandText = AddProjectString;
-  
+
             cmdAddProject.Parameters.AddWithValue("@grantID", project.grantID);
             cmdAddProject.Parameters.AddWithValue("@employeeID", project.employeeID);
             cmdAddProject.Parameters.AddWithValue("@adminID", currentUserID);
@@ -286,7 +286,7 @@ namespace Lab1.Pages.DB
             cmdAddNote.Connection.ConnectionString = Lab1DBConnString;
             cmdAddNote.CommandText = NoteInsertQuery;
 
-            cmdAddNote.Parameters.AddWithValue("@ProjectID",newProjectID);
+            cmdAddNote.Parameters.AddWithValue("@ProjectID", newProjectID);
             cmdAddNote.Parameters.AddWithValue("@note", project.note);
 
             Lab1DBConnection.Open();
@@ -330,7 +330,7 @@ namespace Lab1.Pages.DB
             {
                 string correctHash = hashReader["Password"].ToString();
 
-                if (PasswordHash.ValidatePassword(Password, correctHash)) 
+                if (PasswordHash.ValidatePassword(Password, correctHash))
                 {
                     return true;
                 }
@@ -355,7 +355,7 @@ namespace Lab1.Pages.DB
 
             cmdLogin.CommandText = loginQuery;
             cmdLogin.Parameters.AddWithValue("@Username", Username);
-            cmdLogin.Parameters.AddWithValue("@Password", PasswordHash.HashPassword(Password)); 
+            cmdLogin.Parameters.AddWithValue("@Password", PasswordHash.HashPassword(Password));
             cmdLogin.Parameters.AddWithValue("@UserID", UserID);
 
             cmdLogin.Connection.Open();
@@ -409,7 +409,7 @@ namespace Lab1.Pages.DB
 
             SqlDataReader tempreader = cmdGetMessages.ExecuteReader();
             return tempreader;
-            
+
         }
 
         public static int NewMessage(int senderID, int RecipientID, string Title, string Content)
