@@ -81,5 +81,12 @@ INSERT INTO Meeting (adminID, representativeID, title, minutes)
 SELECT TOP 1 adminID, 4, 'Partnership Kickoff', 'Discussed project scope and expectations'
 FROM Admin
 
+--Insert Messages
+INSERT INTO Message (senderID, recipientID, title, content, readStatus, timestamp)
+VALUES (1, 2, 'Project Update', 'The project meeting is scheduled for tomorrow at 10 AM.', 0, GETDATE());
+
+INSERT INTO Message (senderID, recipientID, title, content, readStatus, timestamp)
+VALUES (2, 1, 'Re: Project Update', 'Thanks for the update! I will be there.', 0, GETDATE());
+
 
 
