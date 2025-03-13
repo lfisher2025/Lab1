@@ -10,7 +10,7 @@ namespace Lab1.Pages.Messaging
     public class InboxModel : PageModel 
     {
         public List<Message> Messages { get; set; } = new List<Message>();
-
+        
         public void OnGet()
         {
             string userID = HttpContext.Session.GetString("UserID");

@@ -7,7 +7,7 @@ namespace Lab1.Pages.BusinessPartners
 {
     public class BusinessPartnerHomeModel : PageModel
     {
-        private readonly string connectionString = "Server=localhost;Database=Lab1;Trusted_Connection=True";
+        private readonly string connectionString = "Server=localhost;Database=Lab3A;Trusted_Connection=True";
 
         public List<PartnerProjectData> PartnerProjects { get; set; } = new();
 

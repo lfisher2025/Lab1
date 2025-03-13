@@ -12,6 +12,12 @@ namespace Lab1.Pages.Admin
         
         public List<Dictionary<string, object>> TableData { get; set; } = new();
         public string UserID { get; set; }
+        public List<Grant> GrantInfo { get; set;  }
+
+        public AdminHomeModel()
+        {
+            GrantInfo = new List<Grant>();
+        }
 
         public IActionResult OnGet()
         {
@@ -21,6 +27,19 @@ namespace Lab1.Pages.Admin
             {
                 return RedirectToPage("/HashedLogin/HashedLogin"); // Redirect if not logged in
             }
+
+            SqlDataReader grantReader = DBClass.ViewAllGrants();
+            while (grantReader.Read())
+            {
+                GrantInfo.Add(new Grant
+                {
+                    GrantID = Int32.Parse(grantReader["GrantID"].ToString()),
+                    Name = grantReader["Name"].ToString(),
+                    Category = grantReader["Category"].ToString(),
+                    GrantStatus = grantReader["GrantStatus"].ToString()
+                });
+            }
+            DBClass.Lab1DBConnection.Close();
 
             SqlDataReader projectReader = DBClass.ViewAdminProjects();
 

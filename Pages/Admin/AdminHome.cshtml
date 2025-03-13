@@ -3,7 +3,7 @@
 @{
 }
 
-<h1>Welcome [Admin Name]</h1>
+<h1>Welcome @HttpContext.Session.GetString("username")!</h1>
 
 
 <nav class="sub-menu">
@@ -36,7 +36,7 @@
                 }
                 <td>
                     <div class="btn">
-                        <a asp-page="/AdminViewProject" class="btn btn-primary">View</a>
+                        <a asp-page="/Admin/AdminViewProject" class="btn btn-primary">View</a>
                     </div>
                 </td>
             </tr>
@@ -51,6 +51,27 @@
 
 
 
+</table>
+
+<h2>Current Grants</h2>
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>View</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach(var grant in Model.GrantInfo)
+            {
+                <tr>
+                <td>@grant.Name</td>
+                <td><a asp-page="/Faculty/ViewGrant" class="btn btn-primary">View</a></td>
+                </tr>
+            }
+        }
+    </tbody>
 </table>
 
 <style>

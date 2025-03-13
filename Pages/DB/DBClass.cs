@@ -23,10 +23,10 @@ namespace Lab1.Pages.DB
 
         // Connection String - How to find and connect to DB
         private static readonly String? Lab1DBConnString =
-            "Server=localhost;Database=Lab3;Trusted_Connection=True";
+            "Server=localhost;Database=Lab3A;Trusted_Connection=True";
 
         private static readonly String? AuthConnString =
-            "Server=Localhost;Database=AUTH;Trusted_Connection=True";
+            "Server=Localhost;Database=AUTH1;Trusted_Connection=True";
 
 
 
@@ -156,7 +156,7 @@ namespace Lab1.Pages.DB
 
         public static SqlDataReader ViewAllGrants()
         {
-            string GrantSelectString = "SELECT grantID, name FROM Grants;";
+            string GrantSelectString = "SELECT * FROM Grants;";
             SqlCommand cmdViewGrants = new SqlCommand();
             cmdViewGrants.Connection = Lab1DBConnection;
             cmdViewGrants.Connection.ConnectionString = Lab1DBConnString;
@@ -509,6 +509,36 @@ namespace Lab1.Pages.DB
             return tempreader;
 
             
+        }
+
+        public static void EditGrant (Grant g)
+        {
+            String sqlQuery = "UPDATE Grants SET";
+            sqlQuery += "Name='" + g.Name + "',";
+            sqlQuery += "Category='" + g.Category + "',";
+            sqlQuery += "Status='" + g.GrantStatus + "',";
+            sqlQuery += "Amount='" + g.Amount + "'WHERE GrantID=" + g.GrantID;
+
+            SqlCommand cmdGrantRead = new SqlCommand();
+            cmdGrantRead.Connection = Lab1DBConnection;
+            cmdGrantRead.Connection.ConnectionString = Lab1DBConnString;
+            cmdGrantRead.CommandText = sqlQuery;
+            cmdGrantRead.Connection.Open();
+
+            cmdGrantRead.ExecuteNonQuery();
+        }
+
+        public static SqlDataReader SingleGrantReader(int GrantID)
+        {
+            SqlCommand cmdGrantRead = new SqlCommand();
+            cmdGrantRead.Connection = Lab1DBConnection;
+            cmdGrantRead.Connection.ConnectionString = Lab1DBConnString;
+            cmdGrantRead.CommandText = "SELECT * FROM Grants WHERE GrantID = " + GrantID;
+            cmdGrantRead.Connection.Open();
+
+            SqlDataReader tempReader = cmdGrantRead.ExecuteReader();
+
+            return tempReader;
         }
     }
 
