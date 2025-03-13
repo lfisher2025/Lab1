@@ -10,7 +10,7 @@ namespace Lab1.Pages.Faculty
 {
     public class ViewGrantModel : PageModel
     {
-        private readonly string connectionString = "Server=localhost;Database=Lab3A;Trusted_Connection=True";
+        private readonly string connectionString = "Server=localhost;Database=Lab3;Trusted_Connection=True";
 
         [BindProperty(SupportsGet = true)]
         public string SearchName { get; set; }

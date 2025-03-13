@@ -23,10 +23,10 @@ namespace Lab1.Pages.DB
 
         // Connection String - How to find and connect to DB
         private static readonly String? Lab1DBConnString =
-            "Server=localhost;Database=Lab3A;Trusted_Connection=True";
+            "Server=localhost;Database=Lab3;Trusted_Connection=True";
 
         private static readonly String? AuthConnString =
-            "Server=Localhost;Database=AUTH1;Trusted_Connection=True";
+            "Server=Localhost;Database=AUTH;Trusted_Connection=True";
 
 
 

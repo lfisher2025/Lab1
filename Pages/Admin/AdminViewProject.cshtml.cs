@@ -8,7 +8,7 @@ namespace Lab1.Pages.Admin
 {
     public class ViewProjectModel : PageModel
     {
-        private readonly string connectionString = "Server=localhost;Database=Lab3A;Trusted_Connection=True";
+      
 
         [BindProperty(SupportsGet = true)]
         public string ProjectName { get; set; }
