@@ -19,7 +19,7 @@ namespace Lab1.Pages.DB
 
         // Connection String - How to find and connect to DB
         private static readonly String? Lab1DBConnString =
-            "Server=localhost;Database=Lab1;Trusted_Connection=True";
+            "Server=localhost;Database=Lab3;Trusted_Connection=True";
 
         private static readonly String? AuthConnString =
             "Server=Localhost;Database=AUTH;Trusted_Connection=True";
@@ -144,11 +144,10 @@ namespace Lab1.Pages.DB
 
         public static SqlDataReader ViewAllGrants()
         {
-            string GrantSelectString = "SELECT grantID, name FROM Grants;";
             SqlCommand cmdViewGrants = new SqlCommand();
             cmdViewGrants.Connection = Lab1DBConnection;
             cmdViewGrants.Connection.ConnectionString = Lab1DBConnString;
-            cmdViewGrants.CommandText = GrantSelectString;
+            cmdViewGrants.CommandText = "SELECT grantID, name, category, grantStatus FROM Grants;";
             Lab1DBConnection.Open();
 
             SqlDataReader tempReader = cmdViewGrants.ExecuteReader();
@@ -222,15 +221,14 @@ namespace Lab1.Pages.DB
         }
 
         public static SqlDataReader ViewAdminProjects()
-        {
-            string ViewAdminProjectsString = "SELECT Project.name, Grants.amount , Project.dueDate " +
-                "FROM Project JOIN Grants ON Project.grantID = Grants.grantID ;";
-
+        { 
 
             SqlCommand cmdViewAdminProjects = new SqlCommand();
             cmdViewAdminProjects.Connection = Lab1DBConnection;
             cmdViewAdminProjects.Connection.ConnectionString = Lab1DBConnString;
-            cmdViewAdminProjects.CommandText = ViewAdminProjectsString;
+            cmdViewAdminProjects.CommandText = "SELECT Project.projectID, Project.name, " +
+                "Grants.amount , Project.dueDate " +
+                "FROM Project JOIN Grants ON Project.grantID = Grants.grantID ;";
             Lab1DBConnection.Open();
 
             SqlDataReader tempReader = cmdViewAdminProjects.ExecuteReader();

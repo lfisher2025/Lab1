@@ -3,7 +3,7 @@
 @{
 }
 
-<h1>Welcome [Admin Name]</h1>
+<h1>Welcome @HttpContext.Session.GetString("username")!</h1>
 
 
 <nav class="sub-menu">
@@ -20,6 +20,7 @@
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
+            <th>Project ID</th>
             <th>Name</th>
             <th>Amount</th>
             <th>Due Date</th>

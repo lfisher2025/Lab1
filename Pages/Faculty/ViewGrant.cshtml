@@ -1,4 +1,32 @@
 ﻿@page
 @model Lab1.Pages.Faculty.ViewGrantModel
 @{
+    ViewData["Title"] = "ViewGrant";
 }
+
+<h2>View Grants</h2>
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>Grant ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <td>Status</td>
+            <th>View More</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var grant in Model.GrantInfo)
+            {
+                <tr>
+                    <td>@grant.GrantID</td>
+                    <td>@grant.Name</td>
+                    <td>@grant.Category</td>
+                    <td>@grant.GrantStatus</td>
+                    <td><button><a>View</a></button></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
