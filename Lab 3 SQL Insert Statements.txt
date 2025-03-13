@@ -32,9 +32,9 @@ UNION ALL
 SELECT 'EduGrant Inc.', representativeID, 'Memo Signed' FROM Representative;
 
 -- Insert Grants
-INSERT INTO Grants (name, category, amount, businessID) VALUES
-('Tech Innovation Grant', 'Business-funded', 50000.00, (SELECT TOP 1 businessID FROM BusinessPartner WHERE name = 'TechCorp')),
-('STEM Education Grant', 'Federal', 100000.00, NULL);
+INSERT INTO Grants (name, category, amount, businessID, grantStatus) VALUES
+('Tech Innovation Grant', 'Business-funded', 50000.00, (SELECT TOP 1 businessID FROM BusinessPartner WHERE name = 'TechCorp'), 'Applied'),
+('STEM Education Grant', 'Federal', 100000.00, NULL, 'Pending');
 
 -- Insert FacultyGrant
 INSERT INTO FacultyGrant (grantID, facultyID)
