@@ -66,6 +66,7 @@ CREATE TABLE Grants (
     category NVARCHAR(20) NOT NULL CHECK (category IN ('Federal', 'State', 'University', 'Business-funded')),
     amount DECIMAL(10,2) NOT NULL,
     businessID INT,
+    grantStatus NVARCHAR(255),
     FOREIGN KEY (businessID) REFERENCES BusinessPartner(businessID)
 );
 
