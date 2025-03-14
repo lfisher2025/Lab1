@@ -39,7 +39,7 @@ namespace Lab1.Pages.DB
 
 
             //This method and the SQL procedure were developed with the help of ChatGPT.The tool was utilized to assist us with seamlessly linking
-            // the generated userID in the Lab1 DB to the UserID in the AUTH DB.Will add this functionality later
+            // the generated userID in the Lab1 DB to the UserID in the AUTH DB.
             SqlCommand cmdAddUser = new SqlCommand();
             cmdAddUser.Connection = Lab1DBConnection;
             cmdAddUser.Connection.ConnectionString = Lab1DBConnString;
@@ -354,8 +354,8 @@ namespace Lab1.Pages.DB
             SqlCommand cmdLogin = new SqlCommand();
             cmdLogin.Connection = Lab1DBConnection;
             cmdLogin.Connection.ConnectionString = AuthConnString;
-
-            cmdLogin.CommandText = loginQuery;
+            cmdLogin.CommandType = CommandType.StoredProcedure;
+            cmdLogin.CommandText = "sp_Lab3Login";
             cmdLogin.Parameters.AddWithValue("@Username", Username);
 
             cmdLogin.Connection.Open();
