@@ -257,6 +257,20 @@ namespace Lab1.Pages.DB
 
         }
 
+        public static SqlDataReader ViewEmployeeProjects()
+        {
+            string ViewEmployeeProjectsString = "SELECT name, completeStatus FROM Project;";
+
+            SqlCommand cmdViewEmployeeProjects = new SqlCommand();
+            cmdViewEmployeeProjects.Connection = Lab1DBConnection;
+            cmdViewEmployeeProjects.Connection.ConnectionString = Lab1DBConnString;
+            cmdViewEmployeeProjects.CommandText = ViewEmployeeProjectsString;
+            Lab1DBConnection.Open();
+
+            SqlDataReader tempReader = cmdViewEmployeeProjects.ExecuteReader();
+            return tempReader;
+        }
+
      
 
         public static void AddNewProject(Project project, int currentUserID)
@@ -537,6 +551,19 @@ namespace Lab1.Pages.DB
             cmdGrantRead.Connection.Open();
 
             SqlDataReader tempReader = cmdGrantRead.ExecuteReader();
+
+            return tempReader;
+        }
+
+        public static SqlDataReader PartnerReader()
+        {
+            SqlCommand cmdPartnerRead = new SqlCommand();
+            cmdPartnerRead.Connection = Lab1DBConnection;
+            cmdPartnerRead.Connection.ConnectionString = Lab1DBConnString;
+            cmdPartnerRead.CommandText = "SELECT * FROM BusinessPartner";
+            cmdPartnerRead.Connection.Open();
+
+            SqlDataReader tempReader = cmdPartnerRead.ExecuteReader();
 
             return tempReader;
         }
