@@ -8,13 +8,18 @@
     <input type="hidden" asp-for="@Model.GrantToUpdate.GrantID"/>
     <label asp-for="@Model.GrantToUpdate.Name"></label>
     <input type="text" asp-for="@Model.GrantToUpdate.Name" />
-    <br />
+    <br /><br />
     <label asp-for="@Model.GrantToUpdate.Category"></label>
     <input type="text" asp-for="@Model.GrantToUpdate.Category" />
-    <br />
+    <br /><br />
     <label asp-for="@Model.GrantToUpdate.GrantStatus"></label>
-    <input type="text" asp-for="@Model.GrantToUpdate.GrantStatus"/>
-    <br />
+    <select asp-for="@Model.GrantToUpdate.GrantStatus">
+        <option value="1">In Progress</option>
+        <option value="2">Awarded</option>
+        <option value="3">Applied</option>
+        <option value="4">Rejected</option>
+    </select>
+    <br /><br />
     <label asp-for="@Model.GrantToUpdate.Amount"></label>
     <input type="number" asp-for="@Model.GrantToUpdate.Amount" />
     <br /><br />
