@@ -10,7 +10,7 @@ namespace Lab1.Pages.Admin
     public class AddUserModel : PageModel
     {
         [BindProperty]
-        public String UserType { get; set; }
+        public int UserType { get; set; }
     
         public String SelectUser { get; set; }
         [BindProperty] public String FirstName { get; set; }
@@ -60,7 +60,7 @@ namespace Lab1.Pages.Admin
             Email = "fishe4lj@dukes.jmu.edu";
             MiddleInitial = "J";
             PhoneNumber = "1234567890";
-            UserType = "employee";
+            UserType = 3;
             return Page();
         }
 

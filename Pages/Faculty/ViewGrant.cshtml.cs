@@ -28,8 +28,19 @@ namespace Lab1.Pages.Faculty
             GrantInfo = new List<Grant>();
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            string UserID = HttpContext.Session.GetString("username");
+            string UserType = HttpContext.Session.GetString("UserType");
+
+            if (string.IsNullOrEmpty(UserID))
+            {
+                return RedirectToPage("/HashedLogin/HashedLogin"); // Redirect if not logged in
+            }
+            if (UserType != "1" && UserType != "2")
+            { return RedirectToPage("/Shared/UnauthorizedResource"); }
+
+
             SqlDataReader ViewGrants = DBClass.ViewAllGrants();
             while (ViewGrants.Read())
             {
@@ -74,6 +85,7 @@ namespace Lab1.Pages.Faculty
                     }
                 }
             }
+            return Page();
         }
 
         public class GrantData

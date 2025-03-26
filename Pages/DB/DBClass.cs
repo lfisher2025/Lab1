@@ -82,15 +82,15 @@ namespace Lab1.Pages.DB
             Lab1DBConnection.Close();
 
 
-            if (newUser.UserType == "employee")
+            if (newUser.UserType == 3)
             {
                 DBClass.AddEmployee(newUserId, CurrentUserID);
             }
-            else if (newUser.UserType == "representative")
+            else if (newUser.UserType == 4)
             {
                 DBClass.AddRepresentative(newUserId);
             }
-            else if (newUser.UserType == "faculty")
+            else if (newUser.UserType == 2)
             {
                 //will be added later, the initial form needs to dynamically change when a faculty user is selected to add new fields
             }
@@ -566,6 +566,21 @@ namespace Lab1.Pages.DB
             SqlDataReader tempReader = cmdPartnerRead.ExecuteReader();
 
             return tempReader;
+        }
+
+        public static int GetUserType(int userID)
+        {
+            SqlCommand cmdGetType = new SqlCommand();
+            cmdGetType.Connection = Lab1DBConnection;
+            cmdGetType.Connection.ConnectionString = Lab1DBConnString;
+            cmdGetType.CommandText = "SELECT UserTypeID FROM Users WHERE UserID = @UserID";
+
+            cmdGetType.Parameters.AddWithValue("UserId", userID);
+            cmdGetType.Connection.Open();
+
+            int userType = (int)cmdGetType.ExecuteScalar();
+
+            return userType;
         }
     }
 

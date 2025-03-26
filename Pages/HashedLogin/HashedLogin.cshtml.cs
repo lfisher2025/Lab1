@@ -34,6 +34,11 @@ namespace Lab1.Pages.Practice
                 int UserID = DBClass.GetUserID(Username);
                 HttpContext.Session.SetString("UserID", UserID.ToString());
                 DBClass.Lab1DBConnection.Close();
+
+                //Adding Usertype to session state for user aware pages
+                int UserType = DBClass.GetUserType(UserID);
+                HttpContext.Session.SetString("UserType", UserType.ToString());
+                DBClass.Lab1DBConnection.Close();
                 return Page();
             }
             else

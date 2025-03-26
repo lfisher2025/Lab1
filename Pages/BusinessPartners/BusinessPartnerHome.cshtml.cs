@@ -14,8 +14,19 @@ namespace Lab1.Pages.BusinessPartners
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            string Username = HttpContext.Session.GetString("username");
+            string UserType = HttpContext.Session.GetString("UserType");
+
+            if (string.IsNullOrEmpty(Username))
+            {
+                return RedirectToPage("/HashedLogin/HashedLogin"); // Redirect if not logged in
+            }
+
+            if (UserType != "4" && UserType != "1")
+            { return RedirectToPage("/Shared/UnauthorizedResource"); }
+
             using (SqlConnection conn = new(connectionString))
             {
                 conn.Open();
@@ -46,6 +57,7 @@ namespace Lab1.Pages.BusinessPartners
                     }
                 }
             }
+            return Page();
         }
 
         public class PartnerProjectData

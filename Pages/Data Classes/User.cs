@@ -2,7 +2,7 @@
 {
     public class User
     {
-        public String UserType { get; set; }
+        public int UserType { get; set; }
         public int UserID { get; set; }
         public String FirstName { get; set; }
         public String LastName { get; set; }

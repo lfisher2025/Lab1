@@ -12,7 +12,7 @@ AS
 BEGIN
     SET NOCOUNT OFF;
 
-    INSERT INTO Users (FirstName, LastName, MiddleInitial, Role, PhoneNumber, Email)
+    INSERT INTO Users (FirstName, LastName, MiddleInitial, userTypeID, PhoneNumber, Email)
     VALUES (@FirstName, @LastName, @MiddleInitial, @Role, @PhoneNumber, @Email);
 
     SET @NewUserID = SCOPE_IDENTITY(); -- Get the newly inserted UserID

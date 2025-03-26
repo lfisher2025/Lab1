@@ -1,13 +1,22 @@
+-- Create User Type Table
+CREATE TABLE UserType (
+    typeID INT PRIMARY KEY,
+    name NVARCHAR(60) NOT NULL
+);
+
 -- Create User Table 
 CREATE TABLE Users (
     userID INT PRIMARY KEY IDENTITY(1,1),
     firstName NVARCHAR(60) NOT NULL,
     lastName NVARCHAR(60) NOT NULL,
     middleInitial NVARCHAR(1) NOT NULL,
-    role VARCHAR(50) NOT NULL CHECK (role IN ('faculty', 'admin', 'employee', 'representative')),
+    userTypeID INT NOT NULL,
     phoneNumber NVARCHAR(15) NOT NULL,
-    email NVARCHAR(60) NOT NULL
+    email NVARCHAR(60) NOT NULL,
+
+    FOREIGN KEY (userTypeID) REFERENCES UserType(typeID)
 );
+
 
 -- Create Message Table 
 CREATE TABLE Message (

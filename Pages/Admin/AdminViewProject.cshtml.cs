@@ -24,9 +24,20 @@ namespace Lab1.Pages.Admin
 
         public List<Project> Projects { get; set; } = new();
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-      
+
+            string UserID = HttpContext.Session.GetString("username");
+            string UserType = HttpContext.Session.GetString("UserType");
+
+            if (string.IsNullOrEmpty(UserID))
+            {
+                return RedirectToPage("/HashedLogin/HashedLogin"); // Redirect if not logged in
+            }
+            if (UserType != "1")
+            { return RedirectToPage("/Shared/UnauthorizedResource"); }
+
+            else { return Page(); }
         }
        public IActionResult OnPost()
         {

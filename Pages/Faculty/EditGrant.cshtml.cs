@@ -15,8 +15,19 @@ namespace Lab1.Pages.Faculty
         {
             GrantToUpdate = new Grant();
         }
-        public void OnGet(int grantid)
+        public IActionResult OnGet(int grantid)
         {
+            string UserID = HttpContext.Session.GetString("UserID");
+            string UserType = HttpContext.Session.GetString("UserType");
+
+
+            if (string.IsNullOrEmpty(UserID))
+            {
+                return RedirectToPage("/HashedLogin/HashedLogin"); // Redirect if not currently logged in
+            }
+            if (UserType != "2" && UserType != "1")
+            { return RedirectToPage("/Shared/UnauthorizedResource"); }
+
             SqlDataReader singleGrant = DBClass.SingleGrantReader(grantid);
 
             while (singleGrant.Read())
@@ -28,6 +39,8 @@ namespace Lab1.Pages.Faculty
                 GrantToUpdate.Amount = Convert.ToDouble(singleGrant["Amount"].ToString());
             }
             DBClass.Lab1DBConnection.Close();
+
+            return Page();
         }
 
         public IActionResult OnPost()

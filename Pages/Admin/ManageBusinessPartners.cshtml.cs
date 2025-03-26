@@ -18,12 +18,17 @@ namespace Lab1.Pages.Admin
         }
         public IActionResult OnGet()
         {
-            UserID = HttpContext.Session.GetString("username");
+            string UserID = HttpContext.Session.GetString("username");
+            string UserType = HttpContext.Session.GetString("UserType");
 
             if (string.IsNullOrEmpty(UserID))
             {
                 return RedirectToPage("/HashedLogin/HashedLogin"); // Redirect if not logged in
             }
+
+            if (UserType != "1")
+            { return RedirectToPage("/Shared/UnauthorizedResource"); }
+
 
             SqlDataReader partnerReader = DBClass.PartnerReader();
             while (partnerReader.Read())

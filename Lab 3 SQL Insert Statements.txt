@@ -1,29 +1,38 @@
+--Insert UserTypes
+INSERT INTO UserType (typeID, name) VALUES 
+(1, 'Admin'),
+(2, 'Faculty'),
+(3, 'Employee'),
+(4, 'Representative');
+
+
+
 -- Insert Users
-INSERT INTO Users (firstName, lastName, middleInitial, role, phoneNumber, email) VALUES
-('Cody', 'Bridge', 'M', 'faculty', '540-555-5964', 'bridg2cm@dukes.jmu.edu'),
-('Luke', 'Fisher', 'J', 'admin', '540-555-8901', 'fishe4lj@dukes.jmu.edu'),
-('Jeremy', 'Ezell', 'D', 'employee', '540-568-3222', 'ezelljd@jmu.edu'),
-('Carey', 'Cole', 'B', 'representative', '540-568-3439', 'colecb@jme.edu');
+INSERT INTO Users (firstName, lastName, middleInitial, userTypeID, phoneNumber, email) VALUES
+('Cody', 'Bridge', 'M', 2, '540-555-5964', 'bridg2cm@dukes.jmu.edu'),
+('Luke', 'Fisher', 'J', 1, '540-555-8901', 'fishe4lj@dukes.jmu.edu'),
+('Jeremy', 'Ezell', 'D', 3, '540-568-3222', 'ezelljd@jmu.edu'),
+('Carey', 'Cole', 'B', 4, '540-568-3439', 'colecb@jme.edu');
 
 -- Insert Admin
 INSERT INTO Admin (adminID) 
-SELECT userID FROM Users WHERE role = 'admin';
+SELECT userID FROM Users WHERE userTypeID = 1;
 
 -- Insert Employee
 INSERT INTO Employee (employeeID, adminID) 
 SELECT userID, adminID 
 FROM Users 
 JOIN Admin ON adminID = adminID
-WHERE role = 'employee';
+WHERE userTypeID = 3;
 
 -- Insert Representative
 INSERT INTO Representative (representativeID) 
-SELECT userID FROM Users WHERE role = 'representative';
+SELECT userID FROM Users WHERE userTypeID = 4;
 
 -- Insert Faculty
 INSERT INTO Faculty (facultyID, schoolName, department) 
 SELECT userID, 'Engineering College', 'Computer Science' 
-FROM Users WHERE role = 'faculty';
+FROM Users WHERE userTypeID = 2;
 
 -- Insert Business Partners
 INSERT INTO BusinessPartner (name, representativeID, status) 

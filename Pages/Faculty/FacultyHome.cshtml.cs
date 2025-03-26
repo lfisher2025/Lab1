@@ -17,15 +17,18 @@ namespace Lab1.Pages.Faculty
 
         public IActionResult OnGet()
         {
-            // gather the current user ID, the populate button logs as a user, if you want to test with a valid employee id, enter 2 as your user id
+            
 
-            UserID = HttpContext.Session.GetString("UserID");
+            string UserID = HttpContext.Session.GetString("UserID");
+            string UserType = HttpContext.Session.GetString("UserType");
+
 
             if (string.IsNullOrEmpty(UserID))
             {
                 return RedirectToPage("/HashedLogin/HashedLogin"); // Redirect if not currently logged in
             }
-
+            if (UserType != "2" && UserType != "1")
+            { return RedirectToPage("/Shared/UnauthorizedResource"); }
 
             // Gather all projects for the current user
             int facultyID = Convert.ToInt32(UserID);

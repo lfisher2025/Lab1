@@ -22,11 +22,15 @@ namespace Lab1.Pages.Admin
         public IActionResult OnGet()
         {
             string Username = HttpContext.Session.GetString("username");
+            string UserType = HttpContext.Session.GetString("UserType");
 
             if (string.IsNullOrEmpty(Username))
             {
                 return RedirectToPage("/HashedLogin/HashedLogin"); // Redirect if not logged in
             }
+            if (UserType != "1")
+            { return RedirectToPage("/Shared/UnauthorizedResource"); }
+
             else { return Page(); }
         }
 
